@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="[28,)"
+updateJSONURL="https://raw.githubusercontent.com/MinecraftModDevelopmentMods/creepy-creepers/master/update.json"
+issueTrackerURL="https://github.com/MinecraftModDevelopmentMods/creepy-creepers/issues"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/creepy-creepers"
+logoFile=""
+credits="ProxyNeko"
+authors="ProxyNeko"
+
+[[mods]]
+modId="creepy-creepers"
+version="${file.jarVersion}"
+displayName="Creepy Creepers"
+description='''
+I'm not even sure anymore... Want some spooky jam?
+'''
+
+[[dependencies.creepy-creepers]]
+   modId="forge"
+   mandatory=true
+   versionRange="[28,)"
+   ordering="NONE"
+   side="BOTH"
+[[dependencies.creepy-creepers]]
+   modId="minecraft"
+   mandatory=true
+   versionRange="[1.14.4]"
+   ordering="NONE"
+   side="BOTH"
