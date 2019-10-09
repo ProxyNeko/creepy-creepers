@@ -20,7 +20,7 @@ public class GhostlyCreeperModel extends EntityModel<GhostlyCreeperEntity> {
         head_field.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, 0.5F);
 
         creeper_head = new RendererModel(this, 0, 0);
-        creeper_head.setRotationPoint(0.0F, 6.0F, 0.0F);
+        creeper_head.setRotationPoint(0.0F, 0F, 0.0F);
         creeper_head.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, 0.0F);
 
         creeper_body = new RendererModel(this, 16, 16);
@@ -41,7 +41,7 @@ public class GhostlyCreeperModel extends EntityModel<GhostlyCreeperEntity> {
         creeper_head.rotateAngleX = headPitch * 0.0047F;
         creeper_head.rotateAngleY = netHeadYaw * 0.0047F;
         //TODO Creeper floating speed thingy.
-        creeper_body.offsetY = MathHelper.cos(ageInTicks) * 0.05F;
+        creeper_body.offsetY = MathHelper.cos(ageInTicks * 0.15F) * 0.15F;
     }
 
     public void setRotateAngles(RendererModel rendererModel, float x, float y, float z) {

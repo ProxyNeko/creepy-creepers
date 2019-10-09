@@ -1,5 +1,6 @@
 package com.mcmoddev.spookyjam.common.entities;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -22,6 +23,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
@@ -275,4 +277,8 @@ public class GhostlyCreeperEntity extends MonsterEntity {
     public void incrementDroppedSkulls() {
         ++droppedSkulls;
     }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState blockIn) {}
+    
 }
