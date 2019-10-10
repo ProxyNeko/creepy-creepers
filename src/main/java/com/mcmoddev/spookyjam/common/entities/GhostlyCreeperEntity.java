@@ -1,6 +1,5 @@
 package com.mcmoddev.spookyjam.common.entities;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -23,7 +22,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
@@ -49,11 +47,11 @@ public class GhostlyCreeperEntity extends MonsterEntity {
 
     protected void registerGoals() {
         goalSelector.addGoal(1, new SwimGoal(this));
+        //TODO Make a custom creeper swell goal class, vanilla one is not compatible with multiple creepers.
         //goalSelector.addGoal(2, new CreeperSwellGoal(this));
         goalSelector.addGoal(3, new AvoidEntityGoal<>(this, OcelotEntity.class, 6.0F, 1.0D, 1.2D));
         goalSelector.addGoal(3, new AvoidEntityGoal<>(this, CatEntity.class, 6.0F, 1.0D, 1.2D));
         goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.0D, false));
-        goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 0.8D));
         goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         goalSelector.addGoal(6, new LookRandomlyGoal(this));
         targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
@@ -148,6 +146,7 @@ public class GhostlyCreeperEntity extends MonsterEntity {
         return SoundEvents.ENTITY_CREEPER_HURT;
     }
 
+    //TODO Figure out what one is the sound the creeper makes before it explodes, override it and add a custom one.
     protected SoundEvent getDeathSound() {
         return SoundEvents.ENTITY_CREEPER_DEATH;
     }
@@ -162,7 +161,6 @@ public class GhostlyCreeperEntity extends MonsterEntity {
                 entityDropItem(Items.CREEPER_HEAD);
             }
         }
-
     }
 
     public boolean attackEntityAsMob(Entity entityIn) {

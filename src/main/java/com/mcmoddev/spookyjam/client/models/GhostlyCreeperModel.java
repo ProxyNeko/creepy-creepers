@@ -40,7 +40,6 @@ public class GhostlyCreeperModel extends EntityModel<GhostlyCreeperEntity> {
     public void setRotationAngles(GhostlyCreeperEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         creeper_head.rotateAngleX = headPitch * 0.0047F;
         creeper_head.rotateAngleY = netHeadYaw * 0.0047F;
-        //TODO Creeper floating speed thingy.
         creeper_body.offsetY = MathHelper.cos(ageInTicks * 0.15F) * 0.15F;
     }
 
