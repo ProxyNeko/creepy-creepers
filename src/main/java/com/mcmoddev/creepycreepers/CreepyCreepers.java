@@ -1,4 +1,4 @@
-package com.mcmoddev.spookyjam;
+package com.mcmoddev.creepycreepers;
 
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
