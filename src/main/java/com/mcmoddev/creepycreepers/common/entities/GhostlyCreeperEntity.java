@@ -1,11 +1,20 @@
-package com.mcmoddev.spookyjam.common.entities;
+package com.mcmoddev.creepycreepers.common.entities;
 
+import com.mcmoddev.creepycreepers.common.init.SoundRegistry;
+import com.mcmoddev.creepycreepers.common.misc.CreeperSwellGoal;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.effect.LightningBoltEntity;
+import net.minecraft.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.entity.ai.goal.HurtByTargetGoal;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.LookRandomlyGoal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.CatEntity;
@@ -22,24 +31,24 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.event.ForgeEventFactory;
 
 import java.util.Collection;
 
 public class GhostlyCreeperEntity extends MonsterEntity {
 
     private static final DataParameter<Integer> STATE = EntityDataManager.createKey(CreeperEntity.class, DataSerializers.VARINT);
-    private static final DataParameter<Boolean> POWERED = EntityDataManager.createKey(CreeperEntity.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> IGNITED = EntityDataManager.createKey(CreeperEntity.class, DataSerializers.BOOLEAN);
     private int lastActiveTime;
     private int timeSinceIgnited;
     private int fuseTime = 30;
     private int explosionRadius = 3;
-    private int droppedSkulls;
 
     public GhostlyCreeperEntity(EntityType<? extends MonsterEntity> type, World world) {
         super(type, world);
@@ -47,11 +56,11 @@ public class GhostlyCreeperEntity extends MonsterEntity {
 
     protected void registerGoals() {
         goalSelector.addGoal(1, new SwimGoal(this));
-        //TODO Make a custom creeper swell goal class, vanilla one is not compatible with multiple creepers.
-        //goalSelector.addGoal(2, new CreeperSwellGoal(this));
+        goalSelector.addGoal(2, new CreeperSwellGoal(this));
         goalSelector.addGoal(3, new AvoidEntityGoal<>(this, OcelotEntity.class, 6.0F, 1.0D, 1.2D));
         goalSelector.addGoal(3, new AvoidEntityGoal<>(this, CatEntity.class, 6.0F, 1.0D, 1.2D));
         goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.0D, false));
+        goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 0.8D));
         goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         goalSelector.addGoal(6, new LookRandomlyGoal(this));
         targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
@@ -78,16 +87,11 @@ public class GhostlyCreeperEntity extends MonsterEntity {
     protected void registerData() {
         super.registerData();
         dataManager.register(STATE, -1);
-        dataManager.register(POWERED, false);
         dataManager.register(IGNITED, false);
     }
 
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
-        if (dataManager.get(POWERED)) {
-            compound.putBoolean("powered", true);
-        }
-
         compound.putShort("Fuse", (short) fuseTime);
         compound.putByte("ExplosionRadius", (byte) explosionRadius);
         compound.putBoolean("ignited", hasIgnited());
@@ -98,7 +102,6 @@ public class GhostlyCreeperEntity extends MonsterEntity {
      */
     public void readAdditional(CompoundNBT compound) {
         super.readAdditional(compound);
-        dataManager.set(POWERED, compound.getBoolean("powered"));
         if (compound.contains("Fuse", 99)) {
             fuseTime = compound.getShort("Fuse");
         }
@@ -110,7 +113,6 @@ public class GhostlyCreeperEntity extends MonsterEntity {
         if (compound.getBoolean("ignited")) {
             ignite();
         }
-
     }
 
     /**
@@ -125,7 +127,7 @@ public class GhostlyCreeperEntity extends MonsterEntity {
 
             int i = getCreeperState();
             if (i > 0 && timeSinceIgnited == 0) {
-                playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
+                playSound(SoundRegistry.CREEPERSCREAM_SOUND, 1.0F, 0.5F);
             }
 
             timeSinceIgnited += i;
@@ -138,7 +140,6 @@ public class GhostlyCreeperEntity extends MonsterEntity {
                 explode();
             }
         }
-
         super.tick();
     }
 
@@ -146,32 +147,16 @@ public class GhostlyCreeperEntity extends MonsterEntity {
         return SoundEvents.ENTITY_CREEPER_HURT;
     }
 
-    //TODO Figure out what one is the sound the creeper makes before it explodes, override it and add a custom one.
     protected SoundEvent getDeathSound() {
         return SoundEvents.ENTITY_CREEPER_DEATH;
     }
 
     protected void dropSpecialItems(DamageSource source, int looting, boolean recentlyHitIn) {
         super.dropSpecialItems(source, looting, recentlyHitIn);
-        Entity entity = source.getTrueSource();
-        if (entity != this && entity instanceof CreeperEntity) {
-            CreeperEntity creeperentity = (CreeperEntity) entity;
-            if (creeperentity.ableToCauseSkullDrop()) {
-                creeperentity.incrementDroppedSkulls();
-                entityDropItem(Items.CREEPER_HEAD);
-            }
-        }
     }
 
     public boolean attackEntityAsMob(Entity entityIn) {
         return true;
-    }
-
-    /**
-     * Returns true if the creeper is powered by a lightning bolt.
-     */
-    public boolean getPowered() {
-        return dataManager.get(POWERED);
     }
 
     /**
@@ -196,13 +181,6 @@ public class GhostlyCreeperEntity extends MonsterEntity {
         dataManager.set(STATE, state);
     }
 
-    /**
-     * Called when a lightning bolt hits the entity.
-     */
-    public void onStruckByLightning(LightningBoltEntity lightningBolt) {
-        super.onStruckByLightning(lightningBolt);
-        dataManager.set(POWERED, true);
-    }
 
     protected boolean processInteract(PlayerEntity player, Hand hand) {
         ItemStack itemstack = player.getHeldItem(hand);
@@ -211,9 +189,7 @@ public class GhostlyCreeperEntity extends MonsterEntity {
             player.swingArm(hand);
             if (!world.isRemote) {
                 ignite();
-                itemstack.damageItem(1, player, (p_213625_1_) -> {
-                    p_213625_1_.sendBreakAnimation(hand);
-                });
+                itemstack.damageItem(1, player, (p_213625_1_) -> p_213625_1_.sendBreakAnimation(hand));
                 return true;
             }
         }
@@ -226,10 +202,9 @@ public class GhostlyCreeperEntity extends MonsterEntity {
      */
     private void explode() {
         if (!world.isRemote) {
-            Explosion.Mode explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(world, this) ? Explosion.Mode.DESTROY : Explosion.Mode.NONE;
-            float f = getPowered() ? 2.0F : 1.0F;
+            Explosion.Mode explosion$mode = ForgeEventFactory.getMobGriefingEvent(world, this) ? Explosion.Mode.DESTROY : Explosion.Mode.NONE;
             dead = true;
-            world.createExplosion(this, posX, posY, posZ, (float) explosionRadius * f, explosion$mode);
+            world.createExplosion(this, posX, posY, posZ, (float) explosionRadius, explosion$mode);
             remove();
             spawnLingeringCloud();
         }
@@ -259,24 +234,11 @@ public class GhostlyCreeperEntity extends MonsterEntity {
         return dataManager.get(IGNITED);
     }
 
-    public void ignite() {
+    private void ignite() {
         dataManager.set(IGNITED, true);
     }
 
-    /**
-     * Returns true if an entity is able to drop its skull due to being blown up by this creeper.
-     * <p>
-     * Does not test if this creeper is charged; the caller must do that. However, does test the doMobLoot gamerule.
-     */
-    public boolean ableToCauseSkullDrop() {
-        return getPowered() && droppedSkulls < 1;
-    }
-
-    public void incrementDroppedSkulls() {
-        ++droppedSkulls;
-    }
-
     @Override
-    protected void playStepSound(BlockPos pos, BlockState blockIn) {}
-    
+    protected void playStepSound(BlockPos pos, BlockState blockIn) {
+    }
 }

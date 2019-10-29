@@ -1,7 +1,7 @@
-package com.mcmoddev.spookyjam.common;
+package com.mcmoddev.creepycreepers.common;
 
-import com.mcmoddev.spookyjam.CreepyCreepers;
-import com.mcmoddev.spookyjam.common.entities.GhostlyCreeperEntity;
+import com.mcmoddev.creepycreepers.CreepyCreepers;
+import com.mcmoddev.creepycreepers.common.entities.GhostlyCreeperEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;

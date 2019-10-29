@@ -1,6 +1,6 @@
-package com.mcmoddev.spookyjam.client.models;
+package com.mcmoddev.creepycreepers.client.models;
 
-import com.mcmoddev.spookyjam.common.entities.GhostlyCreeperEntity;
+import com.mcmoddev.creepycreepers.common.entities.GhostlyCreeperEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.util.math.MathHelper;
@@ -40,7 +40,9 @@ public class GhostlyCreeperModel extends EntityModel<GhostlyCreeperEntity> {
     public void setRotationAngles(GhostlyCreeperEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         creeper_head.rotateAngleX = headPitch * 0.0047F;
         creeper_head.rotateAngleY = netHeadYaw * 0.0047F;
-        creeper_body.offsetY = MathHelper.cos(ageInTicks * 0.15F) * 0.15F;
+        if (!entity.hasIgnited()) {
+            creeper_body.offsetY = MathHelper.cos(ageInTicks * 0.15F) * 0.15F;
+        }
     }
 
     public void setRotateAngles(RendererModel rendererModel, float x, float y, float z) {

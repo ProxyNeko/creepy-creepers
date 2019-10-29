@@ -1,8 +1,8 @@
-package com.mcmoddev.spookyjam.client;
+package com.mcmoddev.creepycreepers.client;
 
-import com.mcmoddev.spookyjam.CreepyCreepers;
-import com.mcmoddev.spookyjam.client.rendering.RenderGhostlyCreeper;
-import com.mcmoddev.spookyjam.common.entities.GhostlyCreeperEntity;
+import com.mcmoddev.creepycreepers.CreepyCreepers;
+import com.mcmoddev.creepycreepers.client.rendering.RenderGhostlyCreeper;
+import com.mcmoddev.creepycreepers.common.entities.GhostlyCreeperEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
