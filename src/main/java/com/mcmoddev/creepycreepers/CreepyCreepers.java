@@ -1,11 +1,14 @@
 package com.mcmoddev.creepycreepers;
 
+import com.mcmoddev.creepycreepers.common.init.Config;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLFingerprintViolationEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
@@ -29,15 +32,17 @@ public class CreepyCreepers {
      */
     public CreepyCreepers() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::fingerprintViolation);
+        ModLoadingContext modLoadingContext = ModLoadingContext.get();
+        modLoadingContext.registerConfig(ModConfig.Type.SERVER, Config.SERVER_SPECIFICATION);
     }
 
     /**
      * Check if the mod is signed and warn if it is not.
      *
-     * @param event
+     * @param event the event fired.
      */
     private void fingerprintViolation(FMLFingerprintViolationEvent event) {
-        LOGGER.warn("Invalid fingerprint detected! The file " + event.getSource().getName() + " may have been " +
+        LOGGER.error("Invalid fingerprint detected! The file " + event.getSource().getName() + " may have been " +
                 "tampered with. This version will NOT be supported! Please download the mod from CurseForge for a " +
                 "supported and signed version of the mod.");
     }

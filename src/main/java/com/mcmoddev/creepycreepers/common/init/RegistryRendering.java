@@ -1,4 +1,4 @@
-package com.mcmoddev.creepycreepers.client;
+package com.mcmoddev.creepycreepers.common.init;
 
 import com.mcmoddev.creepycreepers.CreepyCreepers;
 import com.mcmoddev.creepycreepers.client.rendering.RenderGhostlyCreeper;
@@ -10,7 +10,7 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = CreepyCreepers.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class Rendering {
+public class RegistryRendering {
 
     @SubscribeEvent
     public static void registerModels(ModelRegistryEvent event) {

@@ -1,6 +1,6 @@
 package com.mcmoddev.creepycreepers.common.entities;
 
-import com.mcmoddev.creepycreepers.common.init.SoundRegistry;
+import com.mcmoddev.creepycreepers.common.init.RegistrySound;
 import com.mcmoddev.creepycreepers.common.misc.CreeperSwellGoal;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.AreaEffectCloudEntity;
@@ -72,16 +72,8 @@ public class GhostlyCreeperEntity extends MonsterEntity {
         getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
     }
 
-    public int getMaxFallHeight() {
-        return getAttackTarget() == null ? 3 : 3 + (int) (getHealth() - 1.0F);
-    }
-
+    @Override
     public void fall(float distance, float damageMultiplier) {
-        super.fall(distance, damageMultiplier);
-        timeSinceIgnited = (int) ((float) timeSinceIgnited + distance * 1.5F);
-        if (timeSinceIgnited > fuseTime - 5) {
-            timeSinceIgnited = fuseTime - 5;
-        }
     }
 
     protected void registerData() {
@@ -127,7 +119,7 @@ public class GhostlyCreeperEntity extends MonsterEntity {
 
             int i = getCreeperState();
             if (i > 0 && timeSinceIgnited == 0) {
-                playSound(SoundRegistry.CREEPERSCREAM_SOUND, 1.0F, 0.5F);
+                playSound(RegistrySound.CREEPERSCREAM_SOUND, 1.0F, 1.0F);
             }
 
             timeSinceIgnited += i;

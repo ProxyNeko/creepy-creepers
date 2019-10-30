@@ -1,12 +1,15 @@
-package com.mcmoddev.creepycreepers.common;
+package com.mcmoddev.creepycreepers.common.init;
 
 import com.mcmoddev.creepycreepers.CreepyCreepers;
 import com.mcmoddev.creepycreepers.common.entities.GhostlyCreeperEntity;
 import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -14,7 +17,7 @@ import net.minecraftforge.fml.common.Mod;
 import java.awt.*;
 
 @Mod.EventBusSubscriber(modid = CreepyCreepers.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class EntityRegistry {
+public class RegistryEntity {
 
     public static final EntityType<GhostlyCreeperEntity> GHOSTLY_CREEPER_ENTITY = (EntityType<GhostlyCreeperEntity>) EntityType.Builder.create(GhostlyCreeperEntity::new, EntityClassification.MONSTER)
             .size(0.6F, 1.7F)
@@ -29,6 +32,8 @@ public class EntityRegistry {
         event.getRegistry().registerAll(
                 GHOSTLY_CREEPER_ENTITY
         );
+
+        EntitySpawnPlacementRegistry.register(GHOSTLY_CREEPER_ENTITY, EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::func_223325_c);
     }
 
     @SubscribeEvent

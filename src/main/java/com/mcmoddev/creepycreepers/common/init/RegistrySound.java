@@ -8,7 +8,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = CreepyCreepers.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class SoundRegistry {
+public class RegistrySound {
 
     public static final SoundEvent CREEPERSCREAM_SOUND = getSound("creeperscream");
 
