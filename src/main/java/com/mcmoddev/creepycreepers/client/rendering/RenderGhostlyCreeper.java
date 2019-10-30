@@ -26,6 +26,7 @@ public class RenderGhostlyCreeper extends MobRenderer<GhostlyCreeperEntity, Ghos
     @Override
     protected void preRenderCallback(GhostlyCreeperEntity entity, float partialTickTime) {
         GlStateManager.enableBlend();
+        GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
         float f = entity.getCreeperFlashIntensity(partialTickTime);
         float f1 = 1.0F + MathHelper.sin(f * 100.0F) * f * 0.01F;
         f = MathHelper.clamp(f, 0.0F, 1.0F);
