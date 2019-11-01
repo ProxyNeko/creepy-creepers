@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:rods/wooden"
+    },
+    "X": [
+      {
+        "item": "minecraft:gold"
+      }
+    ]
+  },
+  "result": {
+    "item": "creepy-creepers:proxys_staff_of_power",
+    "count": 1
+  }
+}

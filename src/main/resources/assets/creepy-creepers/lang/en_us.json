@@ -1,5 +1,7 @@
 {
   "itemGroup.creepy-creepers": "Creepy Creepers",
   "item.creepy-creepers.ghostly_creeper_spawn_egg": "Ghostly Creeper Spawn Egg",
-  "entity.creepy-creepers.ghostly_creeper": "Ghostly Creeper"
+  "entity.creepy-creepers.ghostly_creeper": "Ghostly Creeper",
+  "easter_egg_item_information": "Well it is a staff of power.... It has lightning in it!",
+  "item.creepy-creepers.proxys_staff_of_power": "Proxy's Staff of Power"
 }

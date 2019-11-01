@@ -3,7 +3,7 @@ loaderVersion="[28,)"
 updateJSONURL="https://raw.githubusercontent.com/MinecraftModDevelopmentMods/creepy-creepers/master/update.json"
 issueTrackerURL="https://github.com/MinecraftModDevelopmentMods/creepy-creepers/issues"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/creepy-creepers"
-logoFile=""
+#logoFile=""
 credits="ProxyNeko"
 authors="ProxyNeko"
 
