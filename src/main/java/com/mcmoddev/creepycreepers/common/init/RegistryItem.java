@@ -1,21 +1,34 @@
 package com.mcmoddev.creepycreepers.common.init;
 
 import com.mcmoddev.creepycreepers.CreepyCreepers;
-import com.mcmoddev.creepycreepers.common.misc.ItemProxysStaffOfPower;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ObjectHolder;
 
-@ObjectHolder(value = CreepyCreepers.MODID)
-@Mod.EventBusSubscriber(modid = CreepyCreepers.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+import java.awt.Color;
+
+@SuppressWarnings("unused")
+@Mod.EventBusSubscriber(modid = CreepyCreepers.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class RegistryItem {
 
-	public static final Item PROXYS_STAFF_OF_POWER = null;
-
+	/**
+	 * @param event Add items and block items to the item registry.
+	 */
 	@SubscribeEvent
-	public static void onRegisterItems(RegistryEvent.Register<Item> event) {
-		event.getRegistry().register(new ItemProxysStaffOfPower(new Item.Properties().group(CreepyCreepers.CREATIVE_TAB).maxStackSize(1)).setRegistryName(CreepyCreepers.MODID, "proxys_staff_of_power"));
+	@SuppressWarnings("unused")
+	public static void registerItems(RegistryEvent.Register<Item> event) {
+		event.getRegistry().registerAll(
+			//Ghostly creeper.
+			new SpawnEggItem(RegistryEntity.GHOSTLY_CREEPER_ENTITY, Color.WHITE.getRGB(), Color.WHITE.getRGB(),
+				new Item.Properties().group(ItemGroup.MISC))
+				.setRegistryName(CreepyCreepers.MOD_ID + ":ghostly_creeper_spawn_egg"),
+			//Australian creeper.
+			new SpawnEggItem(RegistryEntity.AUSTRALIAN_CREEPER_ENTITY, Color.BLUE.getRGB(), Color.WHITE.getRGB(),
+				new Item.Properties().group(ItemGroup.MISC))
+				.setRegistryName(CreepyCreepers.MOD_ID + ":australian_creeper_spawn_egg")
+		);
 	}
 }

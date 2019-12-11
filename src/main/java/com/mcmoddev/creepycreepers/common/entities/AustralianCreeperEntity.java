@@ -15,9 +15,9 @@ import javax.annotation.Nonnull;
 import java.util.Collection;
 
 /**
- * Setup the ghostly creeper mob.
+ * Setup the australian creeper entity.
  */
-public class GhostlyCreeperEntity extends CreeperEntity {
+public class AustralianCreeperEntity extends CreeperEntity {
 
 	/**
 	 * The time since the creepers last ignition.
@@ -28,7 +28,7 @@ public class GhostlyCreeperEntity extends CreeperEntity {
 	 * @param type  The entity type.
 	 * @param world The world.
 	 */
-	public GhostlyCreeperEntity(EntityType<? extends CreeperEntity> type, World world) {
+	public AustralianCreeperEntity(EntityType<? extends CreeperEntity> type, World world) {
 		super(type, world);
 	}
 
