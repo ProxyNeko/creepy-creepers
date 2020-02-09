@@ -24,11 +24,11 @@ public class RegistryItem {
 			//Ghostly creeper.
 			new SpawnEggItem(RegistryEntity.GHOSTLY_CREEPER_ENTITY, Color.WHITE.getRGB(), Color.WHITE.getRGB(),
 				new Item.Properties().group(ItemGroup.MISC))
-				.setRegistryName(CreepyCreepers.MOD_ID + ":ghostly_creeper_spawn_egg"),
+				.setRegistryName(CreepyCreepers.MOD_ID, "ghostly_creeper_spawn_egg"),
 			//Australian creeper.
 			new SpawnEggItem(RegistryEntity.AUSTRALIAN_CREEPER_ENTITY, Color.BLUE.getRGB(), Color.WHITE.getRGB(),
 				new Item.Properties().group(ItemGroup.MISC))
-				.setRegistryName(CreepyCreepers.MOD_ID + ":australian_creeper_spawn_egg")
+				.setRegistryName(CreepyCreepers.MOD_ID, "australian_creeper_spawn_egg")
 		);
 	}
 }

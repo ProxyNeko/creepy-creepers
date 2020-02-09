@@ -24,7 +24,7 @@ public class RegistryEntity {
 			.setUpdateInterval(1)
 			.setShouldReceiveVelocityUpdates(true)
 			.build(CreepyCreepers.MOD_ID + ":ghostly_creeper")
-			.setRegistryName(CreepyCreepers.MOD_ID + ":ghostly_creeper");
+			.setRegistryName(CreepyCreepers.MOD_ID, "ghostly_creeper");
 
 	@SuppressWarnings("unchecked")
 	public static final EntityType<AustralianCreeperEntity> AUSTRALIAN_CREEPER_ENTITY =
@@ -35,7 +35,7 @@ public class RegistryEntity {
 			.setUpdateInterval(1)
 			.setShouldReceiveVelocityUpdates(true)
 			.build(CreepyCreepers.MOD_ID + ":australian_creeper")
-			.setRegistryName(CreepyCreepers.MOD_ID + ":australian_creeper");
+			.setRegistryName(CreepyCreepers.MOD_ID, "australian_creeper");
 
 	@SubscribeEvent
 	@SuppressWarnings("unused")
