@@ -1,4 +1,4 @@
-package com.mcmoddev.creepycreepers.common.init;
+package cat.tophat.creepycreepers.common.init;
 
 import java.lang.reflect.Field;
 

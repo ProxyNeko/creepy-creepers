@@ -1,4 +1,4 @@
-package com.mcmoddev.creepycreepers.client.models;
+package cat.tophat.creepycreepers.client.models;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
