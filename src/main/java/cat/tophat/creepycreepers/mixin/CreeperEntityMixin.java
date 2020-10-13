@@ -27,7 +27,7 @@ public abstract class CreeperEntityMixin extends MonsterEntity implements ICreep
 	@Shadow public abstract int getCreeperState();
 	@Shadow protected abstract void explode();
 	
-	protected CreeperEntityMixin(EntityType<? extends MonsterEntity> type, World worldIn) {
+	private CreeperEntityMixin(EntityType<? extends MonsterEntity> type, World worldIn) {
 		super(type, worldIn);
 	}
 

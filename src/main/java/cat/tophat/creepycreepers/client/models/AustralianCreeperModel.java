@@ -8,18 +8,21 @@ import net.minecraft.entity.monster.CreeperEntity;
  * extension of the ghostly creeper model to save rewriting
  * common code.
  * <br><br>
- * This code is still a work in progress. A texture is missing
- * and the original intention of this entity seems to be a bit
- * abstract.
+ * Developer note: The render type is currently put as no cull
+ * entity cutout. If planning to use a transparent texture, this
+ * should use the other constructor within {@link GhostlyCreeperModel}.
  * 
  * @param <T> A class that extends {@link CreeperEntity}. Should be left generic.
  */
 public class AustralianCreeperModel<T extends CreeperEntity> extends GhostlyCreeperModel<T> {
 
+	/**
+	 * Constructor for the model.
+	 * 
+	 * @param modelSize The model inflation of the creeper. Do not hardcode.
+	 */
 	public AustralianCreeperModel(float modelSize) {
 		super(RenderType::getEntityCutoutNoCull, modelSize);
-		//this.head.setRotationPoint(0.0F, -8.0F, 0.0F); Not sure what to do here, get information from TopHatCat
-		//this.head.rotateAngleZ = (float) Math.PI;
 		this.body.rotateAngleZ = (float) Math.PI;
 	}
 }
