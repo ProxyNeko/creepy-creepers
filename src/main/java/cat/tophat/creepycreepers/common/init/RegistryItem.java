@@ -3,13 +3,13 @@ package cat.tophat.creepycreepers.common.init;
 import java.awt.Color;
 
 import cat.tophat.creepycreepers.CreepyCreepers;
-import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 @Mod.EventBusSubscriber(modid = CreepyCreepers.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class RegistryItem {
@@ -40,8 +40,8 @@ public class RegistryItem {
 	 * 
 	 * @author Cadiboo
 	 */
-	@SubscribeEvent(priority = EventPriority.LOWEST)
-	public static void onPostRegisterEntities(final RegistryEvent.Register<EntityType<?>> event) {
-		ModdedSpawnEggItem.initUnaddedEggs();
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	public static void onPostRegisterEntities(final FMLCommonSetupEvent event) {
+		event.enqueueWork(() -> ModdedSpawnEggItem.initUnaddedEggs());
 	}
 }
