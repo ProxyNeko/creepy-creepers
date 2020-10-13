@@ -4,14 +4,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 import cat.tophat.creepycreepers.CreepyCreepers;
-import cat.tophat.creepycreepers.common.entities.AustralianCreeperEntity;
-import cat.tophat.creepycreepers.common.entities.GhostlyCreeperEntity;
+import cat.tophat.creepycreepers.common.entities.CreepyCreeperEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EntityType.IFactory;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.world.World;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -24,24 +25,32 @@ import net.minecraftforge.registries.ObjectHolder;
 public class RegistryEntity {
 
 	@ObjectHolder(CreepyCreepers.MOD_ID + ":ghostly_creeper")
-	public static final EntityType<GhostlyCreeperEntity> GHOSTLY_CREEPER_ENTITY = null;
+	public static final EntityType<CreepyCreeperEntity> GHOSTLY_CREEPER_ENTITY = null;
 
 	@ObjectHolder(CreepyCreepers.MOD_ID + ":australian_creeper")
-	public static final EntityType<AustralianCreeperEntity> AUSTRALIAN_CREEPER_ENTITY = null;
+	public static final EntityType<CreepyCreeperEntity> AUSTRALIAN_CREEPER_ENTITY = null;
 
 	@SubscribeEvent
 	public static void registerEntity(RegistryEvent.Register<EntityType<?>> event) {
 		event.getRegistry().registerAll(
-				EntityType.Builder.create(GhostlyCreeperEntity::new,
-						EntityClassification.MONSTER)
+				EntityType.Builder.create(new IFactory<CreepyCreeperEntity>() {
+					@Override
+					public CreepyCreeperEntity create(EntityType<CreepyCreeperEntity> type, World world) {
+						return new CreepyCreeperEntity(type, world, () -> RegistrySound.CREEPER_SCREAM_SOUND);
+					}
+				}, EntityClassification.MONSTER)
 						.size(0.6F, 1.7F)
 						.setTrackingRange(80)
 						.setUpdateInterval(1)
 						.setShouldReceiveVelocityUpdates(true)
 						.build(CreepyCreepers.MOD_ID + ":ghostly_creeper")
 						.setRegistryName(CreepyCreepers.MOD_ID, "ghostly_creeper"),
-				EntityType.Builder.create(AustralianCreeperEntity::new,
-						EntityClassification.MONSTER)
+				EntityType.Builder.create(new IFactory<CreepyCreeperEntity>() {
+					@Override
+					public CreepyCreeperEntity create(EntityType<CreepyCreeperEntity> type, World world) {
+						return new CreepyCreeperEntity(type, world, () -> RegistrySound.CREEPER_SCREAM_SOUND);
+					}
+				}, EntityClassification.MONSTER)
 						.size(0.6F, 1.7F)
 						.setTrackingRange(80)
 						.setUpdateInterval(1)
