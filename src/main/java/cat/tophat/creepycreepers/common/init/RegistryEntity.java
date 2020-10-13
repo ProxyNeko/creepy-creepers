@@ -1,54 +1,93 @@
 package cat.tophat.creepycreepers.common.init;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import cat.tophat.creepycreepers.CreepyCreepers;
-import cat.tophat.creepycreepers.common.entities.AustralianCreeperEntity;
-import cat.tophat.creepycreepers.common.entities.GhostlyCreeperEntity;
+import cat.tophat.creepycreepers.common.entities.CreepyCreeperEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EntityType.IFactory;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
+import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.world.World;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.registries.ObjectHolder;
 
 @Mod.EventBusSubscriber(modid = CreepyCreepers.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class RegistryEntity {
 
-    @SuppressWarnings("unchecked")
-    public static final EntityType<GhostlyCreeperEntity> GHOSTLY_CREEPER_ENTITY =
-            (EntityType<GhostlyCreeperEntity>) EntityType.Builder.create(GhostlyCreeperEntity::new,
-                    EntityClassification.MONSTER)
-                    .size(0.6F, 1.7F)
-                    .setTrackingRange(80)
-                    .setUpdateInterval(1)
-                    .setShouldReceiveVelocityUpdates(true)
-                    .build(CreepyCreepers.MOD_ID + ":ghostly_creeper")
-                    .setRegistryName(CreepyCreepers.MOD_ID, "ghostly_creeper");
+	@ObjectHolder(CreepyCreepers.MOD_ID + ":ghostly_creeper")
+	public static final EntityType<CreepyCreeperEntity> GHOSTLY_CREEPER_ENTITY = null;
 
-    @SuppressWarnings("unchecked")
-    public static final EntityType<AustralianCreeperEntity> AUSTRALIAN_CREEPER_ENTITY =
-            (EntityType<AustralianCreeperEntity>) EntityType.Builder.create(AustralianCreeperEntity::new,
-                    EntityClassification.MONSTER)
-                    .size(0.6F, 1.7F)
-                    .setTrackingRange(80)
-                    .setUpdateInterval(1)
-                    .setShouldReceiveVelocityUpdates(true)
-                    .build(CreepyCreepers.MOD_ID + ":australian_creeper")
-                    .setRegistryName(CreepyCreepers.MOD_ID, "australian_creeper");
+	@ObjectHolder(CreepyCreepers.MOD_ID + ":australian_creeper")
+	public static final EntityType<CreepyCreeperEntity> AUSTRALIAN_CREEPER_ENTITY = null;
 
-    @SubscribeEvent
-    public static void registerEntity(RegistryEvent.Register<EntityType<?>> event) {
-        event.getRegistry().registerAll(
-                GHOSTLY_CREEPER_ENTITY,
-                AUSTRALIAN_CREEPER_ENTITY
-        );
+	@SubscribeEvent
+	public static void registerEntity(RegistryEvent.Register<EntityType<?>> event) {
+		event.getRegistry().registerAll(
+				EntityType.Builder.create(new IFactory<CreepyCreeperEntity>() {
+					@Override
+					public CreepyCreeperEntity create(EntityType<CreepyCreeperEntity> type, World world) {
+						return new CreepyCreeperEntity(type, world, () -> RegistrySound.CREEPER_SCREAM_SOUND);
+					}
+				}, EntityClassification.MONSTER)
+						.size(0.6F, 1.7F)
+						.setTrackingRange(80)
+						.setUpdateInterval(1)
+						.setShouldReceiveVelocityUpdates(true)
+						.build(CreepyCreepers.MOD_ID + ":ghostly_creeper")
+						.setRegistryName(CreepyCreepers.MOD_ID, "ghostly_creeper"),
+				EntityType.Builder.create(new IFactory<CreepyCreeperEntity>() {
+					@Override
+					public CreepyCreeperEntity create(EntityType<CreepyCreeperEntity> type, World world) {
+						return new CreepyCreeperEntity(type, world, () -> RegistrySound.CREEPER_SCREAM_SOUND);
+					}
+				}, EntityClassification.MONSTER)
+						.size(0.6F, 1.7F)
+						.setTrackingRange(80)
+						.setUpdateInterval(1)
+						.setShouldReceiveVelocityUpdates(true)
+						.build(CreepyCreepers.MOD_ID + ":australian_creeper")
+						.setRegistryName(CreepyCreepers.MOD_ID, "australian_creeper")
+		);
+	}
 
-        EntitySpawnPlacementRegistry.register(GHOSTLY_CREEPER_ENTITY,
-                EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-                MonsterEntity::func_223325_c);
-        EntitySpawnPlacementRegistry.register(AUSTRALIAN_CREEPER_ENTITY,
-                EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-                MonsterEntity::func_223325_c);
-    }
+	@SubscribeEvent
+	public static void common(FMLCommonSetupEvent event) {
+		event.enqueueWork(() -> {
+			EntitySpawnPlacementRegistry.register(GHOSTLY_CREEPER_ENTITY,
+					EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+					MonsterEntity::canMonsterSpawnInLight);
+			EntitySpawnPlacementRegistry.register(AUSTRALIAN_CREEPER_ENTITY,
+					EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+					MonsterEntity::canMonsterSpawnInLight);
+			GlobalEntityTypeAttributes.put(GHOSTLY_CREEPER_ENTITY, CreeperEntity.registerAttributes().create());
+			GlobalEntityTypeAttributes.put(AUSTRALIAN_CREEPER_ENTITY, CreeperEntity.registerAttributes().create());
+		});
+	}
+	
+	public static Set<String> whitelist, blacklist;
+	public static int weight;
+
+	@SubscribeEvent
+	public static void onLoad(ModConfig.Loading event) {
+		whitelist = new HashSet<>(Config.SERVER.BiomeWhitelist.get());
+		blacklist = new HashSet<>(Config.SERVER.BiomeBlacklist.get());
+		weight = Config.SERVER.CreeperSpawnWeight.get() == -1 ? 45 : Config.SERVER.CreeperSpawnWeight.get();
+	}
+	
+	@SubscribeEvent
+	public static void onReload(ModConfig.Reloading event) {
+		whitelist = new HashSet<>(Config.SERVER.BiomeWhitelist.get());
+		blacklist = new HashSet<>(Config.SERVER.BiomeBlacklist.get());
+		weight = Config.SERVER.CreeperSpawnWeight.get() == -1 ? 45 : Config.SERVER.CreeperSpawnWeight.get();
+	}
 }

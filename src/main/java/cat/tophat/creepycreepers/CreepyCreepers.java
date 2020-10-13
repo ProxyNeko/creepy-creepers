@@ -1,16 +1,14 @@
 package cat.tophat.creepycreepers;
 
-import cat.tophat.creepycreepers.common.init.Config;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import net.minecraftforge.fml.config.ModConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import cat.tophat.creepycreepers.common.init.Config;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+
 @Mod(CreepyCreepers.MOD_ID)
-@EventBusSubscriber(bus = Bus.MOD)
 public class CreepyCreepers {
 
     /**
