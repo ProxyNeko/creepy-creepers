@@ -31,6 +31,9 @@ public abstract class CreeperEntityMixin extends MonsterEntity implements ICreep
 		super(type, worldIn);
 	}
 
+	/**
+	 * Creeper tick
+	 */
 	@Overwrite
 	public void tick() {
 		if (this.isAlive()) {
