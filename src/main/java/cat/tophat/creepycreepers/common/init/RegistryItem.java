@@ -39,6 +39,7 @@ public class RegistryItem {
 	 * some extra setup after Item and EntityType registration completes.
 	 * 
 	 * @author Cadiboo
+	 * @param event Setup event
 	 */
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public static void onPostRegisterEntities(final FMLCommonSetupEvent event) {
