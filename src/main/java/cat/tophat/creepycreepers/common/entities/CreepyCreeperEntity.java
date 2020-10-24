@@ -37,11 +37,11 @@ public class CreepyCreeperEntity extends CreeperEntity {
 	/**
 	 * Plays the step sound when the mob walks over a certain block.
 	 * 
-	 * @param pos   The position to play the sound at.
-	 * @param blockIn The block under the mob.
+	 * @param pos              The position to play the sound at.
+	 * @param blockUnderneath  The block under the mob.
 	 */
 	@Override
-	protected void playStepSound(BlockPos pos, BlockState blockIn) {}
+	protected void playStepSound(BlockPos pos, BlockState blockUnderneath) {}
 
 	/**
 	 * Called when the creeper has been first ignited.
