@@ -1,6 +1,6 @@
 <h1 align="center">Creepy Creepers</h1>  
 <h5 align="center">A Forge mod, only a small one but one that creeps up on you to give you a fright.</h5>  
-<h5 align="center">Visit [tophat.cat](https://tophat.cat/creepy-creepers/) for more information.</h5>
+<h5 align="center">Visit https://tophat.cat/creepy-creepers/ for more information.</h5>
     
 <p align="center">
 <a href="https://discord.tophat.cat">
