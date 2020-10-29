@@ -39,6 +39,7 @@ public class RegistryItem {
 	 * some extra setup after Item and EntityType registration completes.
 	 * 
 	 * @author Cadiboo
+	 * @param event Add custom spawn eggs after registering entities
 	 */
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public static void onPostRegisterEntities(final FMLCommonSetupEvent event) {

@@ -27,21 +27,21 @@ public class CreepyCreeperEntity extends CreeperEntity {
 	 * 
 	 * @param type The entity type.
 	 * @param worldIn The current world.
-	 * @param ingitedSound A supplier of the ignition sound.
+	 * @param ignitedSound A supplier of the ignition sound.
 	 */
-	public CreepyCreeperEntity(EntityType<? extends CreepyCreeperEntity> type, World worldIn, Supplier<SoundEvent> ingitedSound) {
+	public CreepyCreeperEntity(EntityType<? extends CreepyCreeperEntity> type, World worldIn, Supplier<SoundEvent> ignitedSound) {
 		super(type, worldIn);
-		this.ignitedSound = Lazy.of(ingitedSound);
+		this.ignitedSound = Lazy.of(ignitedSound);
 	}
 
 	/**
 	 * Plays the step sound when the mob walks over a certain block.
 	 * 
-	 * @param pos   The position to play the sound at.
-	 * @param block The block under the mob.
+	 * @param pos              The position to play the sound at.
+	 * @param blockUnderneath  The block under the mob.
 	 */
 	@Override
-	protected void playStepSound(BlockPos pos, BlockState blockIn) {}
+	protected void playStepSound(BlockPos pos, BlockState blockUnderneath) {}
 
 	/**
 	 * Called when the creeper has been first ignited.
