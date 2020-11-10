@@ -11,5 +11,5 @@ public interface ICreeper {
 	/**
 	 * Called when the creeper has been first ignited.
 	 */
-	void onIgnited();
+	void onIgnited(float volume, float pitch);
 }
