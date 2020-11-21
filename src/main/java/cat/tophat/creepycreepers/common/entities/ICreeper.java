@@ -10,6 +10,9 @@ public interface ICreeper {
 
 	/**
 	 * Called when the creeper has been first ignited.
+	 * 
+	 * @param volume The original sound volume.
+	 * @param pitch The original sound pitch.
 	 */
-	void onIgnited();
+	void onIgnited(float volume, float pitch);
 }

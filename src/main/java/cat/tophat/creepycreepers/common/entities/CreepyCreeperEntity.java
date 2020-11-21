@@ -20,7 +20,7 @@ public class CreepyCreeperEntity extends CreeperEntity {
 	/**
 	 * The sound to be played when ignited.
 	 */
-	private final Lazy<SoundEvent> ignitedSound;
+	protected final Lazy<SoundEvent> ignitedSound;
 	
 	/**
 	 * Constructor for the creeper.
@@ -49,7 +49,7 @@ public class CreepyCreeperEntity extends CreeperEntity {
 	 * This method is extending an implementation on a
 	 * mixin so no override is necessary.
 	 */
-	public void onIgnited() {
+	public void onIgnited(float volume, float pitch) {
 		this.playSound(this.ignitedSound.get(), 1.0F, 1.0F);
 	}
 }
