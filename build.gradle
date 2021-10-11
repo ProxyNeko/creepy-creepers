@@ -8,13 +8,18 @@ buildscript {
       name = 'Gradle Maven'
       url = 'https://plugins.gradle.org/m2/'
     }
+    maven {
+      name = 'Sponge Maven'
+      url = 'https://repo.spongepowered.org/maven'
+    }
     jcenter()
     mavenCentral()
   }
   dependencies {
-    classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+    classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1+', changing: true
     classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.4.0'
     classpath group: 'com.diluv.schoomp', name: 'Schoomp', version: "${project.schoomp_version}"
+    classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
   }
 }
 
@@ -23,6 +28,8 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'com.matthewprenger.cursegradle'
+apply plugin: 'org.spongepowered.mixin'
+apply from: 'https://raw.githubusercontent.com/SizableShrimp/Forge-Class-Remapper/main/classremapper.gradle'
 
 import com.diluv.schoomp.Webhook
 import com.diluv.schoomp.message.Message
@@ -36,7 +43,7 @@ tasks.withType(JavaCompile) {
   options.encoding = 'UTF-8'
 }
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '16' // Need this here so eclipse task generates correctly.
 
 sourceSets {
   api
@@ -46,7 +53,7 @@ sourceSets {
 }
 
 minecraft {
-  mappings channel: project.mappings_channel, version: "${project.mappings_version}-${project.mappings_mc_version}"
+  mappings channel: project.mappings_channel, version: "${project.mappings_mc_version}"
   if (project.hasProperty('at_file')) {
     accessTransformer = file("src/main/resources/META-INF/${project.at_file}.cfg")
   }
@@ -56,6 +63,7 @@ minecraft {
       workingDirectory project.file('run')
       property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
       property 'forge.logging.console.level', "info"
+      arg '-mixin.config=' + project.mod_id + '.mixins.json'
       mods.create("${project.mod_id}").source(sourceSets.main)
     }
 
@@ -63,6 +71,7 @@ minecraft {
       workingDirectory project.file('run')
       property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
       property 'forge.logging.console.level', "info"
+      arg '-mixin.config=' + project.mod_id + '.mixins.json'
       mods.create("${project.mod_id}").source(sourceSets.main)
     }
 
@@ -93,7 +102,8 @@ jar {
             "Implementation-Vendor": "${project.mod_author}",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
             "Built-On-Java": "${System.getProperty('java.vm.version')} (${System.getProperty('java.vm.vendor')})",
-            "Built-On": "${project.mc_version}-${project.forge_version}"
+            "Built-On": "${project.mc_version}-${project.forge_version}",
+            "MixinConfigs": "${project.mod_id}.mixins.json"
     )
 
     if (project.hasProperty('core_plugin')) {
@@ -109,6 +119,10 @@ jar {
       attributes 'ContainedDeps': project.mod_contained_deps
     }
   }
+}
+
+mixin {
+  add sourceSets.main, '${project.mod_id}.refmap.json'
 }
 
 tasks.publish.dependsOn build
