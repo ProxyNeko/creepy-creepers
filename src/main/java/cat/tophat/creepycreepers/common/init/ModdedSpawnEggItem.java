@@ -82,5 +82,4 @@ public class ModdedSpawnEggItem extends SpawnEggItem {
 	public EntityType<?> getType(@Nullable final CompoundTag p_208076_1_) {
 		return entityTypeSupplier.get();
 	}
-
 }

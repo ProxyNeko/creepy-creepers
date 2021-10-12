@@ -1,5 +1,8 @@
 package cat.tophat.creepycreepers.common.init;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import cat.tophat.creepycreepers.CreepyCreepers;
 import cat.tophat.creepycreepers.common.entities.CreepyCreeperEntity;
 import net.minecraft.world.entity.EntityType;
@@ -52,6 +55,7 @@ public class RegistryEntity {
 					}
 				}, MobCategory.MONSTER)
 						.sized(0.6F, 1.7F)
+
 						.setTrackingRange(80)
 						.setUpdateInterval(1)
 						.setShouldReceiveVelocityUpdates(true)
