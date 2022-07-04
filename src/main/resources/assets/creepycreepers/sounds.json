@@ -1,0 +1,10 @@
+{
+  "creeperscream": {
+    "replace": false,
+    "sounds": [
+      {
+        "name": "creepycreepers:creeperscream"
+      }
+    ]
+  }
+}
