@@ -36,13 +36,13 @@ import net.minecraft.entity.monster.CreeperEntity;
  */
 public class AustralianCreeperModel<T extends CreeperEntity> extends GhostlyCreeperModel<T> {
 
-	/**
-	 * Constructor for the model.
-	 *
-	 * @param modelSize The model inflation of the creeper. Do not hardcode.
-	 */
-	public AustralianCreeperModel(float modelSize) {
-		super(RenderType::entityCutoutNoCull, modelSize);
-		this.body.zRot = (float) Math.PI;
-	}
+    /**
+     * Constructor for the model.
+     *
+     * @param modelSize The model inflation of the creeper. Do not hardcode.
+     */
+    public AustralianCreeperModel(float modelSize) {
+        super(RenderType::entityCutoutNoCull, modelSize);
+        this.body.zRot = (float) Math.PI;
+    }
 }

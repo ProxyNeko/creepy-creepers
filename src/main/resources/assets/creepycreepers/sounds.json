@@ -1,10 +1,14 @@
 {
-  "creeperscream": {
-    "replace": false,
+  "ghostly_creeper_scream": {
     "sounds": [
-      {
-        "name": "creepycreepers:creeperscream"
-      }
-    ]
+      "creepycreepers:ghostly_creeper_scream"
+    ],
+    "subtitle": "ghostly_creeper_scream"
+  },
+  "australian_creeper": {
+    "sounds": [
+      "creepycreepers:ghostly_creeper_scream"
+    ],
+    "subtitle": "australian_creeper"
   }
 }

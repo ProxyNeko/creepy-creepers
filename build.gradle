@@ -18,7 +18,6 @@ plugins {
   id 'eclipse'
   id 'maven-publish'
   id 'net.minecraftforge.gradle' version '5.1.+'
-  id 'org.spongepowered.mixin' version '0.7.+'
   id 'org.cadixdev.licenser' version '0.6.1'
   id 'net.darkhax.curseforgegradle' version '1.0.11'
 }
@@ -147,24 +146,11 @@ repositories {
   // }
 }
 
-mixin {
-  add sourceSets.main, "${mod_id}.refmap.json"
-
-  // Sets up the mixin config; this gets added to run configurations and the manifest in the final jar
-  config "${mod_id}.mixins.json"
-
-  // Enables exporting mixin-changed classes to .mixin.out in the run folder
-  debug.export = true
-}
-
 dependencies {
   // Specify the version of Minecraft to use. If this is any group other than 'net.minecraft', it is assumed
   // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
   // The userdev artifact is a special name and will get all sorts of transformations applied to it.
   minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-
-  // Mixin annotation processor - generates the refmap
-  annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 
   // Real mod deobf dependency examples - these get remapped to your current mappings
   // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency

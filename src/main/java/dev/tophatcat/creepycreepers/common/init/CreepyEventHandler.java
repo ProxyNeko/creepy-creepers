@@ -27,16 +27,20 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Mod.EventBusSubscriber(modid = CreepyCreepers.MOD_ID)
-public class EventHandler {
+public class CreepyEventHandler {
 
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void biomeLoad(BiomeLoadingEvent event) {
         event.getSpawns().addSpawn(EntityClassification.MONSTER,
-            new MobSpawner(RegistryEntity.GHOSTLY_CREEPER_ENTITY,
-                RegistryEntity.weight, 1, 5));
+            new MobSpawner(CreepyEntityRegistry.GHOSTLY_CREEPER.get(),
+                CreepyEventHandler.weight, 1, 5));
         /*event.getSpawns().addSpawn(EntityClassification.MONSTER,
             new MobSpawner(RegistryEntity.AUSTRALIAN_CREEPER_ENTITY,
                 RegistryEntity.weight, 1, 5));*/
@@ -49,14 +53,14 @@ public class EventHandler {
                 registry.getOptional(loc).ifPresent(biome -> {
                     biome.getMobSettings().getMobs(EntityClassification.MONSTER).forEach(spawner -> {
                         if (spawner instanceof MobSpawner) {
-                            if (RegistryEntity.whitelist != null && !RegistryEntity.whitelist.isEmpty()) {
-                                if (!RegistryEntity.whitelist.contains(loc.toString())) {
+                            if (CreepyEventHandler.allowlist != null && !CreepyEventHandler.allowlist.isEmpty()) {
+                                if (!CreepyEventHandler.allowlist.contains(loc.toString())) {
                                     ((MobSpawner) spawner).invalidate();
                                 } else {
                                     ((MobSpawner) spawner).validate();
                                 }
-                            } else if (RegistryEntity.blacklist != null && !RegistryEntity.blacklist.isEmpty()) {
-                                if (RegistryEntity.blacklist.contains(loc.toString())) {
+                            } else if (CreepyEventHandler.disallowlist != null && !CreepyEventHandler.disallowlist.isEmpty()) {
+                                if (CreepyEventHandler.disallowlist.contains(loc.toString())) {
                                     ((MobSpawner) spawner).invalidate();
                                 } else {
                                     ((MobSpawner) spawner).validate();
@@ -67,5 +71,22 @@ public class EventHandler {
                 });
             });
         });
+    }
+
+    public static Set<String> allowlist, disallowlist;
+    public static int weight;
+
+    @SubscribeEvent
+    public static void onLoad(ModConfig.Loading event) {
+        allowlist = new HashSet<>(CreepyConfig.biomeAllowlist.get());
+        disallowlist = new HashSet<>(CreepyConfig.biomeDisallowlist.get());
+        weight = CreepyConfig.creeperSpawnWeight.get() == -1 ? 45 : CreepyConfig.creeperSpawnWeight.get();
+    }
+
+    @SubscribeEvent
+    public static void onReload(ModConfig.Reloading event) {
+        allowlist = new HashSet<>(CreepyConfig.biomeAllowlist.get());
+        disallowlist = new HashSet<>(CreepyConfig.biomeDisallowlist.get());
+        weight = CreepyConfig.creeperSpawnWeight.get() == -1 ? 45 : CreepyConfig.creeperSpawnWeight.get();
     }
 }

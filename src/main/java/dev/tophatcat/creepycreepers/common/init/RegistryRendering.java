@@ -36,10 +36,10 @@ public class RegistryRendering {
 
     @SubscribeEvent
     public static void registerModels(FMLClientSetupEvent event) {
-        RenderingRegistry.registerEntityRenderingHandler(RegistryEntity.GHOSTLY_CREEPER_ENTITY,
+        RenderingRegistry.registerEntityRenderingHandler(CreepyEntityRegistry.GHOSTLY_CREEPER.get(),
             manager -> new CreepyCreeperRenderer<>(manager, GhostlyCreeperModel::new, 0.0f,
                 new ResourceLocation(CreepyCreepers.MOD_ID, "textures/entity/ghostly_creeper.png")));
-        RenderingRegistry.registerEntityRenderingHandler(RegistryEntity.AUSTRALIAN_CREEPER_ENTITY,
+        RenderingRegistry.registerEntityRenderingHandler(CreepyEntityRegistry.AUSTRALIAN_CREEPER.get(),
             manager -> new CreepyCreeperRenderer<>(manager, AustralianCreeperModel::new, 0.0f,
                 new ResourceLocation(CreepyCreepers.MOD_ID, "textures/entity/australian_creeper.png")));
     }

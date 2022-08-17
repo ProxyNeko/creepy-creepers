@@ -23,22 +23,23 @@ package dev.tophatcat.creepycreepers.common.init;
 import dev.tophatcat.creepycreepers.CreepyCreepers;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
-@Mod.EventBusSubscriber(modid = CreepyCreepers.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class RegistrySound {
+public class CreepySoundRegistry {
 
-    public static final SoundEvent CREEPER_SCREAM_SOUND
-        = getSound(new ResourceLocation(CreepyCreepers.MOD_ID, "creeperscream"));
+    public static final DeferredRegister<SoundEvent> CREEPY_SOUNDS = DeferredRegister.create(
+        ForgeRegistries.SOUND_EVENTS, CreepyCreepers.MOD_ID);
 
-    @SubscribeEvent
-    public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
-        event.getRegistry().register(CREEPER_SCREAM_SOUND);
-    }
+    public static final RegistryObject<SoundEvent> GHOSTLY_CREEPER = registerSound("ghostly_creeper_scream",
+        "ghostly_creeper_scream");
+    //TODO Make an Australian Creeper noise!
+    public static final RegistryObject<SoundEvent> AUSTRALIAN_CREEPER = registerSound("australian_creeper",
+        "australian_creeper");
 
-    private static SoundEvent getSound(ResourceLocation location) {
-        return new SoundEvent(location).setRegistryName(location);
+    private static RegistryObject<SoundEvent> registerSound(String registryName, String soundPath) {
+        return CREEPY_SOUNDS.register(registryName, () -> new SoundEvent(new ResourceLocation(CreepyCreepers.MOD_ID,
+            soundPath)));
     }
 }

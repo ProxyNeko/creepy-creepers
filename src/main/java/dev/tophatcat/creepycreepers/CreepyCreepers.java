@@ -20,10 +20,15 @@
  */
 package dev.tophatcat.creepycreepers;
 
-import dev.tophatcat.creepycreepers.common.init.Config;
+import dev.tophatcat.creepycreepers.common.init.CreepyConfig;
+import dev.tophatcat.creepycreepers.common.init.CreepyEntityRegistry;
+import dev.tophatcat.creepycreepers.common.init.CreepySoundRegistry;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(CreepyCreepers.MOD_ID)
 public class CreepyCreepers {
@@ -38,6 +43,12 @@ public class CreepyCreepers {
      */
     public CreepyCreepers() {
         ModLoadingContext modLoadingContext = ModLoadingContext.get();
-        modLoadingContext.registerConfig(ModConfig.Type.SERVER, Config.SERVER_SPECIFICATION);
+        modLoadingContext.registerConfig(ModConfig.Type.SERVER, CreepyConfig.GENERAL_SPEC);
+        IEventBus mod = FMLJavaModLoadingContext.get().getModEventBus(), forge = MinecraftForge.EVENT_BUS;
+        CreepyEntityRegistry.CREEPERS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        CreepyEntityRegistry.SPAWN_EGGS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        CreepySoundRegistry.CREEPY_SOUNDS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        mod.addListener(CreepyEntityRegistry::registerCreeperContent);
+        mod.addListener(CreepyEntityRegistry::registerAttributes);
     }
 }

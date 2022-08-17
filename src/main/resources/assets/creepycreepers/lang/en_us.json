@@ -1,6 +1,8 @@
 {
   "item.creepycreepers.ghostly_creeper_spawn_egg": "Ghostly Creeper Spawn Egg",
   "entity.creepycreepers.ghostly_creeper": "Ghostly Creeper",
+  "ghostly_creeper_scream": "Ghostly Creeper Scream",
   "item.creepycreepers.australian_creeper_spawn_egg": "Australian Creeper Spawn Egg",
-  "entity.creepycreepers.australian_creeper": "Australian Creeper"
+  "australian_creeper": "Australian Creeper",
+  "entity.creepycreepers.australian_creeper_scream": "Australian Creeper Scream"
 }
