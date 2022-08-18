@@ -18,11 +18,11 @@
  * USA
  * https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
  */
-package dev.tophatcat.creepycreepers.common.init;
+package dev.tophatcat.creepycreepers.init;
 
 import dev.tophatcat.creepycreepers.CreepyCreepers;
-import dev.tophatcat.creepycreepers.common.entities.AustralianCreeperEntity;
-import dev.tophatcat.creepycreepers.common.entities.GhostlyCreeperEntity;
+import dev.tophatcat.creepycreepers.entities.AustralianCreeperEntity;
+import dev.tophatcat.creepycreepers.entities.GhostlyCreeperEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
@@ -39,8 +39,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.awt.Color;
-
 public class CreepyEntityRegistry {
 
     public static final DeferredRegister<Item> SPAWN_EGGS = DeferredRegister.create(
@@ -50,11 +48,11 @@ public class CreepyEntityRegistry {
 
     public static final RegistryObject<EntityType<CreeperEntity>> GHOSTLY_CREEPER = registerEntity(
         "ghostly_creeper", GhostlyCreeperEntity::new, true,
-        0.6F, 1.7F, Color.WHITE.getRGB(), Color.WHITE.getRGB());
+        0.6F, 1.7F, 0xFFFFFF, 0xFFFFFF);
 
     public static final RegistryObject<EntityType<CreeperEntity>> AUSTRALIAN_CREEPER = registerEntity(
         "australian_creeper", AustralianCreeperEntity::new, false,
-        0.6F, 1.7F, Color.WHITE.getRGB(), Color.BLUE.getRGB());
+        0.6F, 1.7F, 0xFFFFFF, 0x0000FF);
 
     private static <T extends Entity> RegistryObject<EntityType<T>>
     registerEntity(String registryName, EntityType.IFactory<T> factory, boolean fireImmune, float width, float height,
@@ -68,6 +66,7 @@ public class CreepyEntityRegistry {
         EntityType<T> entityType = builder.build(registryName);
         RegistryObject<EntityType<T>> registryObject = CREEPERS.register(registryName, () -> entityType);
 
+        System.out.println(primaryEggColor + " " + secondaryEggColor);
         if (primaryEggColor != -1) {
             SPAWN_EGGS.register(registryName + "_spawn_egg", () -> new ForgeSpawnEggItem(registryObject,
                 primaryEggColor, secondaryEggColor, new Item.Properties().tab(ItemGroup.TAB_MISC)));

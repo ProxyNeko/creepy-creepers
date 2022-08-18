@@ -18,18 +18,14 @@
  * USA
  * https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
  */
-package dev.tophatcat.creepycreepers.common.entities;
+package dev.tophatcat.creepycreepers.entities;
 
-import dev.tophatcat.creepycreepers.common.init.CreepySoundRegistry;
-import net.minecraft.block.BlockState;
+import dev.tophatcat.creepycreepers.init.CreepySoundRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.monster.CreeperEntity;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import javax.annotation.Nonnull;
-
-public class AustralianCreeperEntity extends CreeperEntity {
+public class GhostlyCreeperEntity extends CreeperEntity {
 
     /**
      * Constructor for the creeper.
@@ -37,18 +33,8 @@ public class AustralianCreeperEntity extends CreeperEntity {
      * @param type  The entity type.
      * @param level The current world.
      */
-    public AustralianCreeperEntity(EntityType<? extends CreeperEntity> type, World level) {
+    public GhostlyCreeperEntity(final EntityType<? extends CreeperEntity> type, final World level) {
         super(type, level);
-    }
-
-    /**
-     * Plays the step sound when the mob walks over a certain block.
-     *
-     * @param pos             The position to play the sound at.
-     * @param blockUnderneath The block under the mob.
-     */
-    @Override
-    protected void playStepSound(@Nonnull BlockPos pos, @Nonnull BlockState blockUnderneath) {
     }
 
     /**
@@ -64,7 +50,7 @@ public class AustralianCreeperEntity extends CreeperEntity {
 
             int i = this.getSwellDir();
             if (i > 0 && this.swell == 0) {
-                this.playSound(CreepySoundRegistry.AUSTRALIAN_CREEPER.get(), 1.0F, 0.5F);
+                this.playSound(CreepySoundRegistry.GHOSTLY_CREEPER.get(), 1.0F, 1.0F);
             }
 
             this.swell += i;

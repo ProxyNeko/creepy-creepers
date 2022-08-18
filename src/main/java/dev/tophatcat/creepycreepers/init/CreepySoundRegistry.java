@@ -18,7 +18,7 @@
  * USA
  * https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
  */
-package dev.tophatcat.creepycreepers.common.init;
+package dev.tophatcat.creepycreepers.init;
 
 import dev.tophatcat.creepycreepers.CreepyCreepers;
 import net.minecraft.util.ResourceLocation;
@@ -34,7 +34,6 @@ public class CreepySoundRegistry {
 
     public static final RegistryObject<SoundEvent> GHOSTLY_CREEPER = registerSound("ghostly_creeper_scream",
         "ghostly_creeper_scream");
-    //TODO Make an Australian Creeper noise!
     public static final RegistryObject<SoundEvent> AUSTRALIAN_CREEPER = registerSound("australian_creeper",
         "australian_creeper");
 

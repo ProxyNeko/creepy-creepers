@@ -18,23 +18,19 @@
  * USA
  * https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
  */
-package dev.tophatcat.creepycreepers.common.init;
+package dev.tophatcat.creepycreepers.client;
 
 import dev.tophatcat.creepycreepers.CreepyCreepers;
 import dev.tophatcat.creepycreepers.client.models.AustralianCreeperModel;
 import dev.tophatcat.creepycreepers.client.models.GhostlyCreeperModel;
 import dev.tophatcat.creepycreepers.client.rendering.CreepyCreeperRenderer;
+import dev.tophatcat.creepycreepers.init.CreepyEntityRegistry;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = CreepyCreepers.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class RegistryRendering {
+public class CreeperRenderingRegistry {
 
-    @SubscribeEvent
     public static void registerModels(FMLClientSetupEvent event) {
         RenderingRegistry.registerEntityRenderingHandler(CreepyEntityRegistry.GHOSTLY_CREEPER.get(),
             manager -> new CreepyCreeperRenderer<>(manager, GhostlyCreeperModel::new, 0.0f,

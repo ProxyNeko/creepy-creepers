@@ -18,7 +18,7 @@
  * USA
  * https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
  */
-package dev.tophatcat.creepycreepers.common.init;
+package dev.tophatcat.creepycreepers.init;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.WeightedRandom;
@@ -27,13 +27,13 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import java.lang.reflect.Field;
 
-public class MobSpawner extends Spawners {
+public class CreepyMobSpawner extends Spawners {
 
     private static final Field ITEM_WEIGHT = ObfuscationReflectionHelper
         .findField(WeightedRandom.Item.class, "field_76292_a");
     private final int weight;
 
-    public MobSpawner(EntityType<?> type, int weight, int minCount, int maxCount) {
+    public CreepyMobSpawner(EntityType<?> type, int weight, int minCount, int maxCount) {
         super(type, weight, minCount, maxCount);
         this.weight = weight;
     }

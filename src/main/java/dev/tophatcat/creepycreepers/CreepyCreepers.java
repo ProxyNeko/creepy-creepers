@@ -20,35 +20,38 @@
  */
 package dev.tophatcat.creepycreepers;
 
-import dev.tophatcat.creepycreepers.common.init.CreepyConfig;
-import dev.tophatcat.creepycreepers.common.init.CreepyEntityRegistry;
-import dev.tophatcat.creepycreepers.common.init.CreepySoundRegistry;
+import dev.tophatcat.creepycreepers.client.CreeperRenderingRegistry;
+import dev.tophatcat.creepycreepers.init.CreepyConfig;
+import dev.tophatcat.creepycreepers.init.CreepyEntityRegistry;
+import dev.tophatcat.creepycreepers.init.CreepyEventHandler;
+import dev.tophatcat.creepycreepers.init.CreepySoundRegistry;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 
 @Mod(CreepyCreepers.MOD_ID)
 public class CreepyCreepers {
 
-    /**
-     * Set the mods ID.
-     */
     public static final String MOD_ID = "creepycreepers";
 
-    /**
-     * Register things.
-     */
     public CreepyCreepers() {
         ModLoadingContext modLoadingContext = ModLoadingContext.get();
-        modLoadingContext.registerConfig(ModConfig.Type.SERVER, CreepyConfig.GENERAL_SPEC);
         IEventBus mod = FMLJavaModLoadingContext.get().getModEventBus(), forge = MinecraftForge.EVENT_BUS;
+        modLoadingContext.registerConfig(ModConfig.Type.SERVER, CreepyConfig.SERVER_SPEC);
         CreepyEntityRegistry.CREEPERS.register(FMLJavaModLoadingContext.get().getModEventBus());
         CreepyEntityRegistry.SPAWN_EGGS.register(FMLJavaModLoadingContext.get().getModEventBus());
         CreepySoundRegistry.CREEPY_SOUNDS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        forge.addListener(CreepyEventHandler::serverAboutToStart);
+        forge.addListener(CreepyEventHandler::biomeLoad);
         mod.addListener(CreepyEntityRegistry::registerCreeperContent);
         mod.addListener(CreepyEntityRegistry::registerAttributes);
+        if (FMLEnvironment.dist == Dist.CLIENT) {
+            mod.addListener(CreeperRenderingRegistry::registerModels);
+        }
     }
 }
