@@ -20,23 +20,26 @@
  */
 package dev.tophatcat.creepycreepers.client;
 
-import dev.tophatcat.creepycreepers.CreepyCreepers;
 import dev.tophatcat.creepycreepers.client.models.AustralianCreeperModel;
 import dev.tophatcat.creepycreepers.client.models.GhostlyCreeperModel;
-import dev.tophatcat.creepycreepers.client.rendering.CreepyCreeperRenderer;
-import dev.tophatcat.creepycreepers.init.CreepyEntityRegistry;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import dev.tophatcat.creepycreepers.client.rendering.AustralianCreeperRenderer;
+import dev.tophatcat.creepycreepers.client.rendering.GhostlyCreeperRenderer;
+import dev.tophatcat.creepycreepers.init.CreepyRegistry;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 
 public class CreeperRenderingRegistry {
 
-    public static void registerModels(FMLClientSetupEvent event) {
-        RenderingRegistry.registerEntityRenderingHandler(CreepyEntityRegistry.GHOSTLY_CREEPER.get(),
-            manager -> new CreepyCreeperRenderer<>(manager, GhostlyCreeperModel::new, 0.0f,
-                new ResourceLocation(CreepyCreepers.MOD_ID, "textures/entity/ghostly_creeper.png")));
-        RenderingRegistry.registerEntityRenderingHandler(CreepyEntityRegistry.AUSTRALIAN_CREEPER.get(),
-            manager -> new CreepyCreeperRenderer<>(manager, AustralianCreeperModel::new, 0.0f,
-                new ResourceLocation(CreepyCreepers.MOD_ID, "textures/entity/australian_creeper.png")));
+    public static void registerEntityModels(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(CreepyRegistry.GHOSTLY_CREEPER.get(),
+            GhostlyCreeperRenderer::new);
+        event.registerEntityRenderer(CreepyRegistry.AUSTRALIAN_CREEPER.get(),
+            AustralianCreeperRenderer::new);
+    }
+
+    public static void registerLayerDefinition(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(GhostlyCreeperModel.GHOSTLY_CREEPER_LAYER_LOCATION,
+            GhostlyCreeperModel::createBodyLayer);
+        event.registerLayerDefinition(AustralianCreeperModel.AUSTRALIAN_CREEPER_LAYER_LOCATION,
+            AustralianCreeperModel::createBodyLayer);
     }
 }

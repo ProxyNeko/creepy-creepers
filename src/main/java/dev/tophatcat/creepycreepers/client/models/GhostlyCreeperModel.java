@@ -20,58 +20,75 @@
  */
 package dev.tophatcat.creepycreepers.client.models;
 
-import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import dev.tophatcat.creepycreepers.CreepyCreepers;
+import dev.tophatcat.creepycreepers.entities.GhostlyCreeperEntity;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.monster.CreeperEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 
 import javax.annotation.Nonnull;
-import java.util.function.Function;
 
-/**
- * A simplified version of the original model. Also specifies
- * the correct render layer so that it can properly be translucent.
- *
- * @param <T> A class that extends {@link CreeperEntity}. Should be left generic.
- */
-public class GhostlyCreeperModel<T extends CreeperEntity> extends AbstractCreepyCreeperModel<T> {
+public class GhostlyCreeperModel<T extends GhostlyCreeperEntity> extends EntityModel<T> {
 
-    /**
-     * Constructor for the model.
-     *
-     * @param modelSize The model inflation of the creeper. Do not hardcode.
-     */
-    public GhostlyCreeperModel(float modelSize) {
-        this(RenderType::entityTranslucent, modelSize);
+    public static final ModelLayerLocation GHOSTLY_CREEPER_LAYER_LOCATION
+        = new ModelLayerLocation(new ResourceLocation(CreepyCreepers.MOD_ID,
+        "ghostly_creeper"), "main");
+    private final ModelPart head;
+    private final ModelPart body;
+
+    public GhostlyCreeperModel(ModelPart root) {
+        super(RenderType::entityTranslucent);
+        head = root.getChild("head");
+        body = root.getChild("body");
     }
 
-    /**
-     * Constructor for the model.
-     *
-     * @param renderType The render layer the creeper should be in. Used specifically for allowing the australian creeper to extend.
-     * @param modelSize  The model inflation of the creeper. Do not hardcode.
-     */
-    public GhostlyCreeperModel(Function<ResourceLocation, RenderType> renderType, float modelSize) {
-        super(renderType, modelSize, 64, 32);
-        this.head.setPos(0.0F, 0.0F, 0.0F);
-        this.body.addChild(this.head);
+    public static LayerDefinition createBodyLayer() {
+        MeshDefinition meshDefinition = new MeshDefinition();
+        PartDefinition partDefinition = meshDefinition.getRoot();
+
+        partDefinition.addOrReplaceChild("body",
+            CubeListBuilder.create().texOffs(16, 16)
+                .addBox(-4.0F, 0.0F, -2.0F,
+                    8.0F, 12.0F, 4.0F,
+                    new CubeDeformation(0.0F)),
+            PartPose.offset(0.0F, 6.0F, 0.0F));
+
+        partDefinition.addOrReplaceChild("head",
+            CubeListBuilder.create().texOffs(0, 0)
+                .addBox(-4.0F, -8.0F, -4.0F,
+                    8.0F, 8.0F, 8.0F,
+                    new CubeDeformation(0.0F)),
+            PartPose.offset(0.0F, 0.0F, 0.0F));
+
+        return LayerDefinition.create(meshDefinition, 64, 32);
     }
 
-    @Nonnull
     @Override
-    public Iterable<ModelRenderer> parts() {
-        return ImmutableList.of(this.body);
-    }
-
-    @Override
-    public void setupAnim(T entity, float limbSwing, float limbSwingAmount,
+    public void setupAnim(@Nonnull T entity, float limbSwing, float limbSwingAmount,
                           float ageInTicks, float netHeadYaw, float headPitch) {
-        this.head.xRot = headPitch * 0.0047F;
-        this.head.yRot = netHeadYaw * 0.0047F;
+        head.yRot = netHeadYaw * ((float) Math.PI / 180F);
+        head.xRot = headPitch * ((float) Math.PI / 180F);
         if (!entity.isIgnited()) {
-            this.body.offsetY = MathHelper.cos(ageInTicks * 0.15F) * 0.15F;
+            head.y = Mth.cos(ageInTicks * 0.25F) * 0.7F;
+            body.y = Mth.cos(ageInTicks * 0.25F) * 0.7F;
         }
+    }
+
+    @Override
+    public void renderToBuffer(@Nonnull PoseStack poseStack, @Nonnull VertexConsumer vertexConsumer,
+                               int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        head.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, 0.7F);
+        body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, 0.7F);
     }
 }

@@ -20,68 +20,59 @@
  */
 package dev.tophatcat.creepycreepers.init;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.tuple.Pair;
-
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class CreepyConfig {
 
-    public static final ServerConfig SERVER;
-    public static final ForgeConfigSpec SERVER_SPEC;
+    public static final ForgeConfigSpec SERVER_CONFIG_SPEC;
+    public static final CreepyCreeperConfig CONFIG;
 
     static {
-        final Pair<ServerConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ServerConfig::new);
-        SERVER_SPEC = specPair.getRight();
-        SERVER = specPair.getLeft();
+        final Pair<CreepyCreeperConfig, ForgeConfigSpec> configSpecPair
+            = new ForgeConfigSpec.Builder().configure(CreepyCreeperConfig::new);
+        SERVER_CONFIG_SPEC = configSpecPair.getRight();
+        CONFIG = configSpecPair.getLeft();
     }
 
-    public static boolean creepyCreepersNaturallySpawn = true;
-    public static Set<Biome> allowlist = Sets.newHashSet();
-    public static Set<Biome> disallowlist = Sets.newHashSet();
-    public static int weight = 45;
+    public static class CreepyCreeperConfig {
+        //Ghostly Creeper configuration.
+        public final ForgeConfigSpec.IntValue weightMultiplierGhostly;
+        public final ForgeConfigSpec.IntValue maxYLevelSpawnGhostly;
+        public final ForgeConfigSpec.IntValue minSpawnGroupGhostly;
+        public final ForgeConfigSpec.IntValue maxSpawnGroupGhostly;
+        //Australian Creeper Configuration.
+        public final ForgeConfigSpec.IntValue weightMultiplierAustralian;
+        public final ForgeConfigSpec.IntValue maxYLevelSpawnAustralian;
+        public final ForgeConfigSpec.IntValue minSpawnGroupAustralian;
+        public final ForgeConfigSpec.IntValue maxSpawnGroupAustralian;
 
-    public static void setup() {
-        creepyCreepersNaturallySpawn = SERVER.creepyCreepersSpawn.get();
-        allowlist = SERVER.biomeAllowlist.get().stream().map(n
-            -> ForgeRegistries.BIOMES.getValue(new ResourceLocation(n))).collect(Collectors.toSet());
-        disallowlist = SERVER.biomeDisallowlist.get().stream().map(n
-            -> ForgeRegistries.BIOMES.getValue(new ResourceLocation(n))).collect(Collectors.toSet());
+        public CreepyCreeperConfig(ForgeConfigSpec.Builder builder) {
+            builder.push("Ghostly Creeper");
+            builder.comment("Set how much of a chance Ghostly Creepers have to spawn in the world and the min/max "
+                + "group size. (Set Spawn Weight to 0 to prevent them spawning)");
+            weightMultiplierGhostly = builder.defineInRange("Spawn Weight",
+                50, 0, 500);
+            maxYLevelSpawnGhostly = builder.defineInRange("Max Y Spawn Level",
+                128, -64, 320);
+            minSpawnGroupGhostly = builder.defineInRange("Minimum Group Spawn Count",
+                1, 1, 64);
+            maxSpawnGroupGhostly = builder.defineInRange("Maximum Group Spawn Count",
+                3, 1, 64);
+            builder.pop();
 
-    }
-
-    public static class ServerConfig {
-        public ForgeConfigSpec.BooleanValue creepyCreepersSpawn;
-        public ForgeConfigSpec.IntValue creeperSpawnWeight;
-        public ForgeConfigSpec.ConfigValue<List<? extends String>> biomeAllowlist;
-        public ForgeConfigSpec.ConfigValue<List<? extends String>> biomeDisallowlist;
-
-        ServerConfig(ForgeConfigSpec.Builder builder) {
-            builder.push("Creepy Creepers Behaviour");
-            creepyCreepersSpawn = builder
-                .comment("If this creeper should spawn naturally in the world.")
-                .define("enableNaturalSpawning", true);
-
-            creeperSpawnWeight = builder.comment("If -1, the default spawn weight will be used.")
-                .defineInRange("spawnWeight", 45, -1, Integer.MAX_VALUE);
-
-            biomeAllowlist = builder.comment("If biomes are specified here, creepers will spawn in ONLY these biomes. "
-                    + "(The blacklist is ignored while this is set!)")
-                .defineList("whitelist", Lists.newArrayList(), o -> o instanceof String);
-
-            biomeDisallowlist = builder
-                .comment("If the whitelist is not used, use this list to specify the biomes "
-                    + "that creepers should not spawn in.")
-                .defineList("blacklist", Lists.newArrayList("minecraft:void"), o -> o instanceof String);
+            builder.push("Australian Creeper");
+            builder.comment("Set how much of a chance Australian Creepers have to spawn in the world and the min/max "
+                + "group size. (Set Spawn Weight to 0 to prevent them spawning)");
+            weightMultiplierAustralian = builder.defineInRange("Spawn Weight",
+                50, 0, 500);
+            maxYLevelSpawnAustralian = builder.defineInRange("Max Y Spawn Level",
+                128, -64, 320);
+            minSpawnGroupAustralian = builder.defineInRange("Minimum Group Spawn Count",
+                1, 1, 64);
+            maxSpawnGroupAustralian = builder.defineInRange("Maximum Group Spawn Count",
+                3, 1, 64);
             builder.pop();
         }
     }
 }
-

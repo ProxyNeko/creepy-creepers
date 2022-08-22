@@ -21,10 +21,12 @@
 package dev.tophatcat.creepycreepers;
 
 import dev.tophatcat.creepycreepers.client.CreeperRenderingRegistry;
+import dev.tophatcat.creepycreepers.init.CreeperSpawnHandler;
 import dev.tophatcat.creepycreepers.init.CreepyConfig;
-import dev.tophatcat.creepycreepers.init.CreepyEntityRegistry;
-import dev.tophatcat.creepycreepers.init.CreepyEventHandler;
-import dev.tophatcat.creepycreepers.init.CreepySoundRegistry;
+import dev.tophatcat.creepycreepers.init.CreepyRegistry;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -39,19 +41,21 @@ public class CreepyCreepers {
 
     public static final String MOD_ID = "creepycreepers";
 
+    //setup super creepers
     public CreepyCreepers() {
         ModLoadingContext modLoadingContext = ModLoadingContext.get();
         IEventBus mod = FMLJavaModLoadingContext.get().getModEventBus(), forge = MinecraftForge.EVENT_BUS;
-        modLoadingContext.registerConfig(ModConfig.Type.SERVER, CreepyConfig.SERVER_SPEC);
-        CreepyEntityRegistry.CREEPERS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        CreepyEntityRegistry.SPAWN_EGGS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        CreepySoundRegistry.CREEPY_SOUNDS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        forge.addListener(CreepyEventHandler::serverAboutToStart);
-        forge.addListener(CreepyEventHandler::biomeLoad);
-        mod.addListener(CreepyEntityRegistry::registerCreeperContent);
-        mod.addListener(CreepyEntityRegistry::registerAttributes);
+        modLoadingContext.registerConfig(ModConfig.Type.SERVER, CreepyConfig.SERVER_CONFIG_SPEC);
+
+        mod.addGenericListener(SoundEvent.class, CreepyRegistry::registerSound);
+        mod.addGenericListener(EntityType.class, CreepyRegistry::registerEntities);
+        mod.addGenericListener(Item.class, CreepyRegistry::registerEggs);
+        mod.addListener(CreepyRegistry::registerAttributes);
+        forge.addListener(CreeperSpawnHandler::biomeLoad);
+
         if (FMLEnvironment.dist == Dist.CLIENT) {
-            mod.addListener(CreeperRenderingRegistry::registerModels);
+            mod.addListener(CreeperRenderingRegistry::registerEntityModels);
+            mod.addListener(CreeperRenderingRegistry::registerLayerDefinition);
         }
     }
 }

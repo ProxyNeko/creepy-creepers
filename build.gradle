@@ -27,7 +27,7 @@ group = "${mod_group}" // http://maven.apache.org/guides/mini/guide-naming-conve
 archivesBaseName = "${mod_name}-Forge-${minecraft_version}"
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
-java.toolchain.languageVersion = JavaLanguageVersion.of(8)
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 minecraft {
@@ -84,6 +84,8 @@ minecraft {
         args '--username', project.getProperty('mc_username')
       }
 
+      args '-Dterminal.ansi=true'
+
       mods.create("${mod_id}").source(sourceSets.main)
     }
 
@@ -127,6 +129,8 @@ minecraft {
 
       // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
       args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+      args '-Dterminal.ansi=true'
 
       mods.create("${mod_id}").source(sourceSets.main)
     }

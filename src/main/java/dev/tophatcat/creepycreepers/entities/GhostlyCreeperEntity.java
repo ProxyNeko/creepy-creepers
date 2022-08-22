@@ -20,12 +20,21 @@
  */
 package dev.tophatcat.creepycreepers.entities;
 
-import dev.tophatcat.creepycreepers.init.CreepySoundRegistry;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.monster.CreeperEntity;
-import net.minecraft.world.World;
+import dev.tophatcat.creepycreepers.init.CreepyConfig;
+import dev.tophatcat.creepycreepers.init.CreepyRegistry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
-public class GhostlyCreeperEntity extends CreeperEntity {
+import javax.annotation.Nonnull;
+import java.util.Random;
+
+public class GhostlyCreeperEntity extends Creeper {
 
     /**
      * Constructor for the creeper.
@@ -33,8 +42,26 @@ public class GhostlyCreeperEntity extends CreeperEntity {
      * @param type  The entity type.
      * @param level The current world.
      */
-    public GhostlyCreeperEntity(final EntityType<? extends CreeperEntity> type, final World level) {
+    public GhostlyCreeperEntity(final EntityType<? extends Creeper> type, final Level level) {
         super(type, level);
+    }
+
+    public static boolean canSpawn(EntityType<? extends GhostlyCreeperEntity> creeper, ServerLevelAccessor world,
+                                   MobSpawnType reason, BlockPos pos, Random random) {
+        return pos.getY() < CreepyConfig.CONFIG.maxYLevelSpawnGhostly.get()
+            && (world.getBlockState(pos.below()).is(Blocks.STONE)
+            || world.getBlockState(pos.below()).is(Blocks.DEEPSLATE))
+            && isDarkEnoughToSpawn(world, pos, random) && checkMobSpawnRules(creeper, world, reason, pos, random);
+    }
+
+    /**
+     * Plays the step sound when the mob walks over a certain block.
+     *
+     * @param pos             The position to play the sound at.
+     * @param blockUnderneath The block under the mob.
+     */
+    @Override
+    protected void playStepSound(@Nonnull BlockPos pos, @Nonnull BlockState blockUnderneath) {
     }
 
     /**
@@ -50,7 +77,7 @@ public class GhostlyCreeperEntity extends CreeperEntity {
 
             int i = this.getSwellDir();
             if (i > 0 && this.swell == 0) {
-                this.playSound(CreepySoundRegistry.GHOSTLY_CREEPER.get(), 1.0F, 1.0F);
+                this.playSound(CreepyRegistry.ghostly_creeper_scream, 1.0F, 1.0F);
             }
 
             this.swell += i;

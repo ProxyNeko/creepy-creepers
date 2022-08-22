@@ -20,16 +20,21 @@
  */
 package dev.tophatcat.creepycreepers.entities;
 
-import dev.tophatcat.creepycreepers.init.CreepySoundRegistry;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.monster.CreeperEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import dev.tophatcat.creepycreepers.init.CreepyConfig;
+import dev.tophatcat.creepycreepers.init.CreepyRegistry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nonnull;
+import java.util.Random;
 
-public class AustralianCreeperEntity extends CreeperEntity {
+public class AustralianCreeperEntity extends Creeper {
 
     /**
      * Constructor for the creeper.
@@ -37,8 +42,16 @@ public class AustralianCreeperEntity extends CreeperEntity {
      * @param type  The entity type.
      * @param level The current world.
      */
-    public AustralianCreeperEntity(EntityType<? extends CreeperEntity> type, World level) {
+    public AustralianCreeperEntity(final EntityType<? extends Creeper> type, Level level) {
         super(type, level);
+    }
+
+    public static boolean canSpawn(EntityType<? extends AustralianCreeperEntity> creeper, ServerLevelAccessor world,
+                                   MobSpawnType reason, BlockPos pos, Random random) {
+        return pos.getY() < CreepyConfig.CONFIG.maxYLevelSpawnAustralian.get()
+            && (world.getBlockState(pos.below()).is(Blocks.STONE)
+            || world.getBlockState(pos.below()).is(Blocks.DEEPSLATE))
+            && isDarkEnoughToSpawn(world, pos, random) && checkMobSpawnRules(creeper, world, reason, pos, random);
     }
 
     /**
@@ -64,7 +77,7 @@ public class AustralianCreeperEntity extends CreeperEntity {
 
             int i = this.getSwellDir();
             if (i > 0 && this.swell == 0) {
-                this.playSound(CreepySoundRegistry.AUSTRALIAN_CREEPER.get(), 1.0F, 0.5F);
+                this.playSound(CreepyRegistry.australian_creeper, 1.0F, 0.5F);
             }
 
             this.swell += i;
