@@ -20,9 +20,9 @@
  */
 package dev.tophatcat.creepycreepers.entities;
 
-import dev.tophatcat.creepycreepers.init.CreepyConfig;
 import dev.tophatcat.creepycreepers.init.CreepyRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.monster.Creeper;
@@ -32,7 +32,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 public class AustralianCreeperEntity extends Creeper {
 
@@ -47,8 +46,8 @@ public class AustralianCreeperEntity extends Creeper {
     }
 
     public static boolean canSpawn(EntityType<? extends AustralianCreeperEntity> creeper, ServerLevelAccessor world,
-                                   MobSpawnType reason, BlockPos pos, Random random) {
-        return pos.getY() < CreepyConfig.CONFIG.maxYLevelSpawnAustralian.get()
+                                   MobSpawnType reason, BlockPos pos, RandomSource random) {
+        return pos.getY() < 320
             && (world.getBlockState(pos.below()).is(Blocks.STONE)
             || world.getBlockState(pos.below()).is(Blocks.DEEPSLATE))
             && isDarkEnoughToSpawn(world, pos, random) && checkMobSpawnRules(creeper, world, reason, pos, random);
@@ -77,7 +76,7 @@ public class AustralianCreeperEntity extends Creeper {
 
             int i = this.getSwellDir();
             if (i > 0 && this.swell == 0) {
-                this.playSound(CreepyRegistry.australian_creeper, 1.0F, 0.5F);
+                this.playSound(CreepyRegistry.AUSTRALIAN_CREEPER_SOUND.get(), 1.0F, 0.5F);
             }
 
             this.swell += i;

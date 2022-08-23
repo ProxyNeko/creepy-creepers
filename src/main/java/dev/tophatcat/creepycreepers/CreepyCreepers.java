@@ -21,18 +21,10 @@
 package dev.tophatcat.creepycreepers;
 
 import dev.tophatcat.creepycreepers.client.CreeperRenderingRegistry;
-import dev.tophatcat.creepycreepers.init.CreeperSpawnHandler;
-import dev.tophatcat.creepycreepers.init.CreepyConfig;
 import dev.tophatcat.creepycreepers.init.CreepyRegistry;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 
@@ -41,17 +33,14 @@ public class CreepyCreepers {
 
     public static final String MOD_ID = "creepycreepers";
 
-    //setup super creepers
     public CreepyCreepers() {
-        ModLoadingContext modLoadingContext = ModLoadingContext.get();
-        IEventBus mod = FMLJavaModLoadingContext.get().getModEventBus(), forge = MinecraftForge.EVENT_BUS;
-        modLoadingContext.registerConfig(ModConfig.Type.SERVER, CreepyConfig.SERVER_CONFIG_SPEC);
+        IEventBus mod = FMLJavaModLoadingContext.get().getModEventBus();
 
-        mod.addGenericListener(SoundEvent.class, CreepyRegistry::registerSound);
-        mod.addGenericListener(EntityType.class, CreepyRegistry::registerEntities);
-        mod.addGenericListener(Item.class, CreepyRegistry::registerEggs);
+        CreepyRegistry.ENTITIES.register(mod);
+        CreepyRegistry.ITEMS.register(mod);
+        CreepyRegistry.SOUNDS.register(mod);
+        mod.addListener(CreepyRegistry::registerSpawns);
         mod.addListener(CreepyRegistry::registerAttributes);
-        forge.addListener(CreeperSpawnHandler::biomeLoad);
 
         if (FMLEnvironment.dist == Dist.CLIENT) {
             mod.addListener(CreeperRenderingRegistry::registerEntityModels);
