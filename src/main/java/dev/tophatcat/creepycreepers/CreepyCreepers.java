@@ -45,6 +45,7 @@ public class CreepyCreepers {
         if (FMLEnvironment.dist == Dist.CLIENT) {
             mod.addListener(CreeperRenderingRegistry::registerEntityModels);
             mod.addListener(CreeperRenderingRegistry::registerLayerDefinition);
+            mod.addListener(CreepyRegistry::addToCreativeTabs);
         }
     }
 }
