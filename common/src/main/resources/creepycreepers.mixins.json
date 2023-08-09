@@ -1,0 +1,13 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "dev.nertzhul.creepycreepers.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "mixins": [
+        "SpawnEggAccessor"
+    ],
+    "client": [],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

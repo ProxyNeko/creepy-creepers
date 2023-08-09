@@ -1,0 +1,22 @@
+archivesBaseName = "${mod_id}-common-${minecraft_version}"
+
+architectury {
+    injectInjectables = false
+    common("fabric", "forge", "quilt")
+}
+
+loom {
+    accessWidenerPath = file("src/main/resources/${mod_id}.accesswidener")
+    mixin {
+        defaultRefmapName.set("${mod_id}-common-refmap.json")
+    }
+}
+
+dependencies {
+    modImplementation("net.fabricmc:fabric-loader:${fabric_loader_version}")
+}
+
+sourceSets.main.resources {
+    srcDir "src/generated/resources"
+    exclude "**/.cache"
+}

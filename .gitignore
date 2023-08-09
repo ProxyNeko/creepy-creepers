@@ -5,6 +5,7 @@ build/
 !**/src/test/**/build/
 **/run/
 **/src/generated/**
+**/src/main/generated/**
 
 ### IntelliJ IDEA ###
 .idea/

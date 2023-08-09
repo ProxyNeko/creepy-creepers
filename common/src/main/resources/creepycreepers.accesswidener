@@ -1,0 +1,6 @@
+accessWidener	v1	named
+
+accessible field net/minecraft/world/entity/monster/Creeper oldSwell I
+accessible field net/minecraft/world/entity/monster/Creeper swell I
+accessible field net/minecraft/world/entity/monster/Creeper maxSwell I
+extendable method net/minecraft/world/entity/monster/Creeper explodeCreeper ()V
