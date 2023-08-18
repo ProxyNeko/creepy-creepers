@@ -7,8 +7,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.monster.Creeper;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class CcCreeperRenderer<T extends Creeper> extends MobRenderer<T, CcCreeperModel<T>> {
-    public CcCreeperRenderer(EntityRendererProvider.Context context, CcCreeperModel<T> model, float shadowRadius) {
+public abstract class CcCreeperRenderer<T extends Creeper, M extends CcCreeperModel<T>> extends MobRenderer<T, M> {
+    public CcCreeperRenderer(EntityRendererProvider.Context context, M model, float shadowRadius) {
         super(context, model, shadowRadius);
     }
     

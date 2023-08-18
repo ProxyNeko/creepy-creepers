@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import dev.nertzhul.creepycreepers.CreepyCreepers;
 import dev.nertzhul.creepycreepers.forge.datagen.ItemModels;
 import dev.nertzhul.creepycreepers.forge.datagen.LanguagesProvider;
+import dev.nertzhul.creepycreepers.forge.datagen.LootTablesProvider;
 import dev.nertzhul.creepycreepers.forge.datagen.SoundDefinitions;
 import dev.nertzhul.creepycreepers.forge.network.ForgeNetworkManager;
 import dev.nertzhul.creepycreepers.items.DispenserReadySpawnEgg;
@@ -48,6 +49,7 @@ public class CreepyCreepersForge {
         modEventBus.addListener((EntityAttributeCreationEvent event) -> {
             event.put(CcEntities.GHOSTLY_CREEPER.get(), Creeper.createAttributes().build());
             event.put(CcEntities.SNOWY_CREEPER.get(), Creeper.createAttributes().build());
+            event.put(CcEntities.HALLOWEEN_CREEPER.get(), Creeper.createAttributes().build());
         });
         
         modEventBus.addListener((GatherDataEvent event) -> {
@@ -60,6 +62,8 @@ public class CreepyCreepersForge {
             }
             generator.addProvider(event.includeClient(), new ItemModels(output, fileHelper));
             generator.addProvider(event.includeClient(), new SoundDefinitions(output, fileHelper));
+            
+            generator.addProvider(event.includeServer(), new LootTablesProvider(output));
         });
         
         if (FMLEnvironment.dist == Dist.CLIENT) {

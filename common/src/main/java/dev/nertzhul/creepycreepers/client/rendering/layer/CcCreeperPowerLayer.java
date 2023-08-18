@@ -1,5 +1,6 @@
-package dev.nertzhul.creepycreepers.client.rendering;
+package dev.nertzhul.creepycreepers.client.rendering.layer;
 
+import dev.nertzhul.creepycreepers.client.rendering.CcCreeperModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EnergySwirlLayer;
@@ -7,11 +8,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.Creeper;
 import org.jetbrains.annotations.NotNull;
 
-public class CcCreeperPowerLayer<T extends Creeper> extends EnergySwirlLayer<T, CcCreeperModel<T>> {
+public class CcCreeperPowerLayer<T extends Creeper, M extends CcCreeperModel<T>> extends EnergySwirlLayer<T, M> {
     private static final ResourceLocation POWER_LOCATION = new ResourceLocation("textures/entity/creeper/creeper_armor.png");
     private final CcCreeperModel<T> model;
     
-    public CcCreeperPowerLayer(RenderLayerParent<T, CcCreeperModel<T>> pRenderer, CcCreeperModel<T> pModel) {
+    public CcCreeperPowerLayer(RenderLayerParent<T, M> pRenderer, CcCreeperModel<T> pModel) {
         super(pRenderer);
         this.model = pModel;
     }

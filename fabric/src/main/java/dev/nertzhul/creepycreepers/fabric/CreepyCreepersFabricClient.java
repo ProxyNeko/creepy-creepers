@@ -3,6 +3,8 @@ package dev.nertzhul.creepycreepers.fabric;
 import dev.nertzhul.creepycreepers.CreepyCreepersClient;
 import dev.nertzhul.creepycreepers.client.rendering.ghostlycreeper.GhostlyCreeperModel;
 import dev.nertzhul.creepycreepers.client.rendering.ghostlycreeper.GhostlyCreeperRenderer;
+import dev.nertzhul.creepycreepers.client.rendering.halloweencreeper.HalloweenCreeperModel;
+import dev.nertzhul.creepycreepers.client.rendering.halloweencreeper.HalloweenCreeperRenderer;
 import dev.nertzhul.creepycreepers.client.rendering.snowycreeper.SnowyCreeperModel;
 import dev.nertzhul.creepycreepers.client.rendering.snowycreeper.SnowyCreeperRenderer;
 import dev.nertzhul.creepycreepers.fabric.network.FabricNetworkManager;
@@ -22,9 +24,11 @@ public class CreepyCreepersFabricClient implements ClientModInitializer {
         
         EntityRendererRegistry.register(CcEntities.GHOSTLY_CREEPER.get(), GhostlyCreeperRenderer::new);
         EntityRendererRegistry.register(CcEntities.SNOWY_CREEPER.get(), SnowyCreeperRenderer::new);
+        EntityRendererRegistry.register(CcEntities.HALLOWEEN_CREEPER.get(), HalloweenCreeperRenderer::new);
         
         EntityModelLayerRegistry.registerModelLayer(GhostlyCreeperModel.LAYER, GhostlyCreeperModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(SnowyCreeperModel.LAYER, SnowyCreeperModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(HalloweenCreeperModel.LAYER, HalloweenCreeperModel::createBodyLayer);
         
         DispenserReadySpawnEgg.SPAWN_EGGS.forEach(pair -> {
             SpawnEggItem item = pair.getSecond();

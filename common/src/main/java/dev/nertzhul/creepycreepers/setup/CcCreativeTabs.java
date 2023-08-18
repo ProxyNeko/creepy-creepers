@@ -16,6 +16,7 @@ public class CcCreativeTabs {
             .title(CommonConstants.Translations.CREATIVE_TAB.asComponent())
             .displayItems((display, output) -> {
                 output.accept(CcItems.GHOSTLY_CREEPER_SPAWN_EGG.get());
+                output.accept(CcItems.HALLOWEEN_CREEPER_SPAWN_EGG.get());
                 output.accept(CcItems.SNOWY_CREEPER_SPAWN_EGG.get());
             })
             .build()

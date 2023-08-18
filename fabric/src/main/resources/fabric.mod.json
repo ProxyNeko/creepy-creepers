@@ -8,12 +8,11 @@
     "authors": [ "${mod_authors}" ],
     "contact": {
         "homepage": "https://www.curseforge.com/minecraft/mc-mods/creepy-creepers",
-        "sources": "https://github.com/nertzhuldev/creepy-creepers",
-        "issues": "https://github.com/nertzhuldev/creepy-creepers/issues"
+        "sources": "https://www.github.com/nertzhuldev/creepy-creepers",
+        "issues": "https://www.github.com/nertzhuldev/creepy-creepers/issues"
     },
     
     "license": "${mod_license}",
-    "icon": "assets/${mod_id}/mod_icon.png",
     
     "environment": "*",
     "entrypoints": {

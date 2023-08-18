@@ -16,6 +16,9 @@ public class CommonConstants {
         public static final Translation SNOWY_CREEPER_SPAWN_EGG = Translation.builder(CcItems.SNOWY_CREEPER_SPAWN_EGG.get())
             .addLocale(Locale.EN_US, "Snowy Creeper Spawn Egg")
             .addLocale(Locale.PT_BR, "Ovo de Creeper de Neve").build();
+        public static final Translation HALLOWEEN_CREEPER_SPAWN_EGG = Translation.builder(CcItems.HALLOWEEN_CREEPER_SPAWN_EGG.get())
+            .addLocale(Locale.EN_US, "Halloween Creeper Spawn Egg")
+            .addLocale(Locale.PT_BR, "Ovo de Creeper de Halloween").build();
         //endregion
         
         //region Entities
@@ -25,6 +28,9 @@ public class CommonConstants {
         public static final Translation SNOWY_CREEPER = Translation.builder(CcEntities.SNOWY_CREEPER.get())
             .addLocale(Locale.EN_US, "Snowy Creeper")
             .addLocale(Locale.PT_BR, "Creeper de Neve").build();
+        public static final Translation HALLOWEEN_CREEPER = Translation.builder(CcEntities.HALLOWEEN_CREEPER.get())
+            .addLocale(Locale.EN_US, "Halloween Creeper")
+            .addLocale(Locale.PT_BR, "Creeper de Halloween").build();
         //endregion
         
         //region Subtitles

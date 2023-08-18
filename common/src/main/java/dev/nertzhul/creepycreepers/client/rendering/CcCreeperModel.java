@@ -8,6 +8,7 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.Creeper;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Function;
 
@@ -27,7 +28,7 @@ public abstract class CcCreeperModel<T extends Creeper> extends HierarchicalMode
         return CreeperModel.createBodyLayer(CubeDeformation.NONE);
     }
     
-    @Override
+    @Override @NotNull
     public ModelPart root() {
         return this.root;
     }
