@@ -15,12 +15,16 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -52,6 +56,12 @@ public class CreepyCreepersForge {
             event.put(CcEntities.HALLOWEEN_CREEPER.get(), Creeper.createAttributes().build());
         });
         
+        modEventBus.addListener((SpawnPlacementRegisterEvent event) -> {
+            registerMonsterSpawn(event, CcEntities.GHOSTLY_CREEPER.get());
+            registerMonsterSpawn(event, CcEntities.SNOWY_CREEPER.get());
+            registerMonsterSpawn(event, CcEntities.HALLOWEEN_CREEPER.get());
+        });
+        
         modEventBus.addListener((GatherDataEvent event) -> {
             DataGenerator generator = event.getGenerator();
             PackOutput output = generator.getPackOutput();
@@ -69,5 +79,9 @@ public class CreepyCreepersForge {
         if (FMLEnvironment.dist == Dist.CLIENT) {
             CreepyCreepersForgeClient.init();
         }
+    }
+    
+    private <T extends Monster> void registerMonsterSpawn(SpawnPlacementRegisterEvent pEvent, EntityType<T> pEntity) {
+        pEvent.register(pEntity, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, T::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
     }
 }
