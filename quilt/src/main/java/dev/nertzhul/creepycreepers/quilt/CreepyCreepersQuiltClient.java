@@ -13,6 +13,7 @@ import dev.nertzhul.creepycreepers.setup.CcEntities;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.world.item.SpawnEggItem;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
@@ -27,7 +28,8 @@ public class CreepyCreepersQuiltClient implements ClientModInitializer {
         EntityRendererRegistry.register(CcEntities.SNOWY_CREEPER.get(), SnowyCreeperRenderer::new);
         EntityRendererRegistry.register(CcEntities.HALLOWEEN_CREEPER.get(), HalloweenCreeperRenderer::new);
         
-        EntityModelLayerRegistry.registerModelLayer(GhostlyCreeperModel.LAYER, GhostlyCreeperModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(GhostlyCreeperModel.LAYER, () -> GhostlyCreeperModel.createBodyLayer(CubeDeformation.NONE));
+        EntityModelLayerRegistry.registerModelLayer(GhostlyCreeperModel.ARMOR_LAYER, () -> GhostlyCreeperModel.createBodyLayer(new CubeDeformation(1.5F)));
         EntityModelLayerRegistry.registerModelLayer(SnowyCreeperModel.LAYER, SnowyCreeperModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(HalloweenCreeperModel.LAYER, HalloweenCreeperModel::createBodyLayer);
         

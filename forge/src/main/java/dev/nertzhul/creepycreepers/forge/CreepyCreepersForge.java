@@ -2,6 +2,9 @@ package dev.nertzhul.creepycreepers.forge;
 
 import com.mojang.datafixers.util.Pair;
 import dev.nertzhul.creepycreepers.CreepyCreepers;
+import dev.nertzhul.creepycreepers.entities.GhostlyCreeper;
+import dev.nertzhul.creepycreepers.entities.HalloweenCreeper;
+import dev.nertzhul.creepycreepers.entities.SnowyCreeper;
 import dev.nertzhul.creepycreepers.forge.datagen.ItemModels;
 import dev.nertzhul.creepycreepers.forge.datagen.LanguagesProvider;
 import dev.nertzhul.creepycreepers.forge.datagen.LootTablesProvider;
@@ -16,7 +19,6 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -51,9 +53,9 @@ public class CreepyCreepersForge {
         });
         
         modEventBus.addListener((EntityAttributeCreationEvent event) -> {
-            event.put(CcEntities.GHOSTLY_CREEPER.get(), Creeper.createAttributes().build());
-            event.put(CcEntities.SNOWY_CREEPER.get(), Creeper.createAttributes().build());
-            event.put(CcEntities.HALLOWEEN_CREEPER.get(), Creeper.createAttributes().build());
+            event.put(CcEntities.GHOSTLY_CREEPER.get(), GhostlyCreeper.createAttributes().build());
+            event.put(CcEntities.SNOWY_CREEPER.get(), SnowyCreeper.createAttributes().build());
+            event.put(CcEntities.HALLOWEEN_CREEPER.get(), HalloweenCreeper.createAttributes().build());
         });
         
         modEventBus.addListener((SpawnPlacementRegisterEvent event) -> {

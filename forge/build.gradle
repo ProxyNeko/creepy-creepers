@@ -55,6 +55,7 @@ configurations {
 
 dependencies {
     forge "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    modRuntimeOnly("curse.maven:debug-utils-forge-783008:4644077")
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }

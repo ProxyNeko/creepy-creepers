@@ -18,29 +18,41 @@ import net.minecraft.util.Mth;
 
 public class GhostlyCreeperModel extends CcCreeperModel<GhostlyCreeper> {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(CreepyCreepers.resource("ghostly_creeper"), "main");
+    public static final ModelLayerLocation ARMOR_LAYER = new ModelLayerLocation(CreepyCreepers.resource("ghostly_creeper"), "armor");
     
     private final ModelPart head;
     private final ModelPart body;
+    private final ModelPart tail;
     
     public GhostlyCreeperModel(ModelPart root) {
         super(root, RenderType::entityTranslucent);
         this.head = root.getChild("head");
         this.body = root.getChild("body");
+        this.tail = root.getChild("tail");
     }
     
-    public static LayerDefinition createBodyLayer() {
+    public static LayerDefinition createBodyLayer(CubeDeformation pDeformation) {
         MeshDefinition meshDefinition = new MeshDefinition();
         PartDefinition partDefinition = meshDefinition.getRoot();
         
-        partDefinition.addOrReplaceChild("body",
-            CubeListBuilder.create().texOffs(16, 16)
-                .addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)),
-            PartPose.offset(0.0F, 6.0F, 0.0F));
-        
         partDefinition.addOrReplaceChild("head",
-            CubeListBuilder.create().texOffs(0, 0)
-                .addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)),
-            PartPose.offset(0.0F, 0.0F, 0.0F));
+            CubeListBuilder.create()
+                .texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, pDeformation),
+            PartPose.offset(0.0F, 6.0F, 0.0F)
+        );
+        
+        partDefinition.addOrReplaceChild("body",
+            CubeListBuilder.create()
+                .texOffs(0, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, pDeformation),
+            PartPose.offset(0.0F, 6.0F, 0.0F)
+        );
+        
+        partDefinition.addOrReplaceChild("tail",
+            CubeListBuilder.create()
+                .texOffs(40, 0).addBox(-4.0F, 3.0F, -2.0F, 8.0F, 12.0F, 4.0F, pDeformation.extend(-0.3F))
+                .texOffs(40, 16).addBox(-4.0F, 6.0F, -2.0F, 8.0F, 12.0F, 4.0F, pDeformation.extend(-0.6F)),
+            PartPose.offsetAndRotation(0.0F, 6.0F, 0.0F, 0.2F, 0.0F, 0.0F)
+        );
         
         return LayerDefinition.create(meshDefinition, 64, 32);
     }
@@ -53,12 +65,18 @@ public class GhostlyCreeperModel extends CcCreeperModel<GhostlyCreeper> {
         if (!entity.isIgnited()) {
             this.head.y = Mth.cos(ageInTicks * 0.07F) * 0.6F;
             this.body.y = Mth.cos(ageInTicks * 0.07F) * 0.6F;
+            this.tail.y = Mth.cos(ageInTicks * 0.07F) * 0.6F;
+            
+            float j = Math.min(limbSwingAmount / 0.2F, 1.0F);
+            this.body.xRot = j * 0.4F;
+            this.tail.xRot = j * 0.4F;
         }
     }
     
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        this.head.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, 0.65F);
-        this.body.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, 0.65F);
+        this.head.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, 0.75F);
+        this.body.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, 0.75F);
+        this.tail.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, 0.75F);
     }
 }

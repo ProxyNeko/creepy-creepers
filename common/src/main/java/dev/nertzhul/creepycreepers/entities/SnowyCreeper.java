@@ -11,6 +11,7 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -41,7 +42,7 @@ public class SnowyCreeper extends Creeper {
                             && Blocks.SNOW.defaultBlockState().canSurvive(level, blockPos);
                 })
                 .forEach(blockPos -> {
-                    level.setBlockAndUpdate(blockPos, Blocks.SNOW.defaultBlockState());
+                    level.setBlockAndUpdate(blockPos, Blocks.SNOW.defaultBlockState().setValue(SnowLayerBlock.LAYERS, this.random.nextInt(1, 4)));
                     level.sendParticles(ParticleTypes.SNOWFLAKE, blockPos.getX(), blockPos.getY(), blockPos.getZ(), 10,
                         (this.random.nextDouble() - 0.5D), (this.random.nextDouble() - 0.5D), (this.random.nextDouble() - 0.5D), (this.random.nextDouble() - 0.5D) * 0.5D);
                 });

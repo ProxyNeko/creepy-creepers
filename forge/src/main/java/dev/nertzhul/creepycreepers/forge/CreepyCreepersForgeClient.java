@@ -9,6 +9,7 @@ import dev.nertzhul.creepycreepers.client.rendering.snowycreeper.SnowyCreeperMod
 import dev.nertzhul.creepycreepers.client.rendering.snowycreeper.SnowyCreeperRenderer;
 import dev.nertzhul.creepycreepers.items.DispenserReadySpawnEgg;
 import dev.nertzhul.creepycreepers.setup.CcEntities;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -37,7 +38,8 @@ public class CreepyCreepersForgeClient {
     }
     
     private static void onEntityLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(GhostlyCreeperModel.LAYER, GhostlyCreeperModel::createBodyLayer);
+        event.registerLayerDefinition(GhostlyCreeperModel.LAYER, () -> GhostlyCreeperModel.createBodyLayer(CubeDeformation.NONE));
+        event.registerLayerDefinition(GhostlyCreeperModel.ARMOR_LAYER, () -> GhostlyCreeperModel.createBodyLayer(new CubeDeformation(1.5F)));
         event.registerLayerDefinition(SnowyCreeperModel.LAYER, SnowyCreeperModel::createBodyLayer);
         event.registerLayerDefinition(HalloweenCreeperModel.LAYER, HalloweenCreeperModel::createBodyLayer);
     }
