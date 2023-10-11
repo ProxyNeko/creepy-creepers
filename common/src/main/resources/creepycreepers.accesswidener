@@ -4,3 +4,5 @@ accessible field net/minecraft/world/entity/monster/Creeper oldSwell I
 accessible field net/minecraft/world/entity/monster/Creeper swell I
 accessible field net/minecraft/world/entity/monster/Creeper maxSwell I
 extendable method net/minecraft/world/entity/monster/Creeper explodeCreeper ()V
+accessible field net/minecraft/world/entity/monster/Creeper explosionRadius I
+accessible method net/minecraft/world/entity/monster/Creeper spawnLingeringCloud ()V

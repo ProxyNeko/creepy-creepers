@@ -1,4 +1,4 @@
-package dev.nertzhul.creepycreepers.forge.datagen;
+package dev.nertzhul.creepycreepers.forge.datagen.providers;
 
 import dev.nertzhul.creepycreepers.CommonConstants;
 import dev.nertzhul.creepycreepers.CreepyCreepers;

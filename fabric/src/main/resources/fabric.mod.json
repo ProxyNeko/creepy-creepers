@@ -6,6 +6,7 @@
     "name": "${mod_name} - Fabric",
     "description": "${mod_description}",
     "authors": [ "${mod_authors}" ],
+    "icon": "icon.png",
     "contact": {
         "homepage": "https://www.curseforge.com/minecraft/mc-mods/creepy-creepers",
         "sources": "https://www.github.com/nertzhuldev/creepy-creepers",

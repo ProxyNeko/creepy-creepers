@@ -11,7 +11,7 @@ import java.util.Map;
 @Mixin(SpawnEggItem.class)
 public interface SpawnEggAccessor {
     @Accessor("BY_ID")
-    static Map<EntityType<? extends Mob>, SpawnEggItem> cc$getIdMap() {
+    static Map<EntityType<? extends Mob>, SpawnEggItem> cc_getIdMap() {
         throw new AssertionError();
     }
 }

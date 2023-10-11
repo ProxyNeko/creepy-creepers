@@ -8,18 +8,18 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.Creeper;
-import org.jetbrains.annotations.NotNull;
 
+import org.jetbrains.annotations.NotNull;
 import java.util.function.Function;
 
 public abstract class CcCreeperModel<T extends Creeper> extends HierarchicalModel<T> {
     private final ModelPart root;
     
-    public CcCreeperModel(ModelPart pRoot) {
+    protected CcCreeperModel(ModelPart pRoot) {
         this (pRoot, RenderType::entityCutoutNoCull);
     }
     
-    public CcCreeperModel(ModelPart pRoot, Function<ResourceLocation, RenderType> renderType) {
+    protected CcCreeperModel(ModelPart pRoot, Function<ResourceLocation, RenderType> renderType) {
         super(renderType);
         this.root = pRoot;
     }

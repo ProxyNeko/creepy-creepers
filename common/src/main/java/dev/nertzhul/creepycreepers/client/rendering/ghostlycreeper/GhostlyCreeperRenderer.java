@@ -10,6 +10,7 @@ import dev.nertzhul.creepycreepers.entities.GhostlyCreeper;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+
 import org.jetbrains.annotations.NotNull;
 
 public class GhostlyCreeperRenderer extends CcCreeperRenderer<GhostlyCreeper, GhostlyCreeperModel> {

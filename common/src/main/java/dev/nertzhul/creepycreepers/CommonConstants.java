@@ -12,13 +12,16 @@ public class CommonConstants {
         //region Items
         public static final Translation GHOSTLY_CREEPER_SPAWN_EGG = Translation.builder(CcItems.GHOSTLY_CREEPER_SPAWN_EGG.get())
             .addLocale(Locale.EN_US, "Ghostly Creeper Spawn Egg")
-            .addLocale(Locale.PT_BR, "Ovo de Creeper Fantasmagórico").build();
+            .addLocale(Locale.PT_BR, "Ovo Gerador de Creeper Fantasmagórico").build();
         public static final Translation SNOWY_CREEPER_SPAWN_EGG = Translation.builder(CcItems.SNOWY_CREEPER_SPAWN_EGG.get())
             .addLocale(Locale.EN_US, "Snowy Creeper Spawn Egg")
-            .addLocale(Locale.PT_BR, "Ovo de Creeper de Neve").build();
+            .addLocale(Locale.PT_BR, "Ovo Gerador de Creeper de Neve").build();
         public static final Translation HALLOWEEN_CREEPER_SPAWN_EGG = Translation.builder(CcItems.HALLOWEEN_CREEPER_SPAWN_EGG.get())
             .addLocale(Locale.EN_US, "Halloween Creeper Spawn Egg")
-            .addLocale(Locale.PT_BR, "Ovo de Creeper de Halloween").build();
+            .addLocale(Locale.PT_BR, "Ovo Gerador de Creeper de Halloween").build();
+        public static final Translation TUFF_CREEPER_SPAWN_EGG = Translation.builder(CcItems.TUFF_CREEPER_SPAWN_EGG.get())
+            .addLocale(Locale.EN_US, "Tuff Creeper Spawn Egg")
+            .addLocale(Locale.PT_BR, "Ovo Gerador de Creeper de Tufo").build();
         //endregion
         
         //region Entities
@@ -31,6 +34,9 @@ public class CommonConstants {
         public static final Translation HALLOWEEN_CREEPER = Translation.builder(CcEntities.HALLOWEEN_CREEPER.get())
             .addLocale(Locale.EN_US, "Halloween Creeper")
             .addLocale(Locale.PT_BR, "Creeper de Halloween").build();
+        public static final Translation TUFF_CREEPER = Translation.builder(CcEntities.TUFF_CREEPER.get())
+            .addLocale(Locale.EN_US, "Tuff Creeper")
+            .addLocale(Locale.PT_BR, "Creeper de Tufo").build();
         //endregion
         
         //region Subtitles

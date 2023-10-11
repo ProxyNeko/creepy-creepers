@@ -5,26 +5,17 @@ import dev.nertzhul.creepycreepers.CreepyCreepers;
 import dev.nertzhul.creepycreepers.entities.GhostlyCreeper;
 import dev.nertzhul.creepycreepers.entities.HalloweenCreeper;
 import dev.nertzhul.creepycreepers.entities.SnowyCreeper;
-import dev.nertzhul.creepycreepers.forge.datagen.ItemModels;
-import dev.nertzhul.creepycreepers.forge.datagen.LanguagesProvider;
-import dev.nertzhul.creepycreepers.forge.datagen.LootTablesProvider;
-import dev.nertzhul.creepycreepers.forge.datagen.SoundDefinitions;
+import dev.nertzhul.creepycreepers.entities.TuffCreeper;
 import dev.nertzhul.creepycreepers.forge.network.ForgeNetworkManager;
 import dev.nertzhul.creepycreepers.items.DispenserReadySpawnEgg;
 import dev.nertzhul.creepycreepers.mixin.SpawnEggAccessor;
 import dev.nertzhul.creepycreepers.setup.CcEntities;
-import dev.nertzhul.creepycreepers.util.Translation;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -43,47 +34,39 @@ public class CreepyCreepersForge {
         
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         
-        modEventBus.addListener((FMLCommonSetupEvent event) -> {
-            ForgeNetworkManager.registerMessages();
-            
-            Map<EntityType<? extends Mob>, SpawnEggItem> idMap = SpawnEggAccessor.cc$getIdMap();
-            for (Pair<Supplier<? extends EntityType<? extends Mob>>, SpawnEggItem> pair : DispenserReadySpawnEgg.SPAWN_EGGS) {
-                idMap.put(pair.getFirst().get(), pair.getSecond());
-            }
-        });
-        
-        modEventBus.addListener((EntityAttributeCreationEvent event) -> {
-            event.put(CcEntities.GHOSTLY_CREEPER.get(), GhostlyCreeper.createAttributes().build());
-            event.put(CcEntities.SNOWY_CREEPER.get(), SnowyCreeper.createAttributes().build());
-            event.put(CcEntities.HALLOWEEN_CREEPER.get(), HalloweenCreeper.createAttributes().build());
-        });
-        
-        modEventBus.addListener((SpawnPlacementRegisterEvent event) -> {
-            registerMonsterSpawn(event, CcEntities.GHOSTLY_CREEPER.get());
-            registerMonsterSpawn(event, CcEntities.SNOWY_CREEPER.get());
-            registerMonsterSpawn(event, CcEntities.HALLOWEEN_CREEPER.get());
-        });
-        
-        modEventBus.addListener((GatherDataEvent event) -> {
-            DataGenerator generator = event.getGenerator();
-            PackOutput output = generator.getPackOutput();
-            ExistingFileHelper fileHelper = event.getExistingFileHelper();
-            
-            for (Translation.Locale locale : Translation.Locale.values()) {
-                generator.addProvider(event.includeClient(), new LanguagesProvider(output, locale));
-            }
-            generator.addProvider(event.includeClient(), new ItemModels(output, fileHelper));
-            generator.addProvider(event.includeClient(), new SoundDefinitions(output, fileHelper));
-            
-            generator.addProvider(event.includeServer(), new LootTablesProvider(output));
-        });
+        modEventBus.addListener(CreepyCreepersForge::onCommonSetup);
+        modEventBus.addListener(CreepyCreepersForge::onEntityAttributeCreation);
+        modEventBus.addListener(CreepyCreepersForge::onSpawnPlacement);
         
         if (FMLEnvironment.dist == Dist.CLIENT) {
             CreepyCreepersForgeClient.init();
         }
     }
     
-    private <T extends Monster> void registerMonsterSpawn(SpawnPlacementRegisterEvent pEvent, EntityType<T> pEntity) {
-        pEvent.register(pEntity, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, T::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+    private static void onCommonSetup(FMLCommonSetupEvent event) {
+        ForgeNetworkManager.registerMessages();
+        
+        Map<EntityType<? extends Mob>, SpawnEggItem> idMap = SpawnEggAccessor.cc_getIdMap();
+        for (Pair<Supplier<? extends EntityType<? extends Mob>>, SpawnEggItem> pair : DispenserReadySpawnEgg.SPAWN_EGGS) {
+            idMap.put(pair.getFirst().get(), pair.getSecond());
+        }
+    }
+    
+    private static void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
+        event.put(CcEntities.GHOSTLY_CREEPER.get(), GhostlyCreeper.createAttributes().build());
+        event.put(CcEntities.SNOWY_CREEPER.get(), SnowyCreeper.createAttributes().build());
+        event.put(CcEntities.HALLOWEEN_CREEPER.get(), HalloweenCreeper.createAttributes().build());
+        event.put(CcEntities.TUFF_CREEPER.get(), TuffCreeper.createAttributes().build());
+    }
+    
+    private static void onSpawnPlacement(SpawnPlacementRegisterEvent event) {
+        event.register(CcEntities.GHOSTLY_CREEPER.get(), SpawnPlacements.Type.ON_GROUND,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GhostlyCreeper::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(CcEntities.HALLOWEEN_CREEPER.get(), SpawnPlacements.Type.ON_GROUND,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, HalloweenCreeper::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(CcEntities.SNOWY_CREEPER.get(), SpawnPlacements.Type.ON_GROUND,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SnowyCreeper::checkCreeperSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(CcEntities.TUFF_CREEPER.get(), SpawnPlacements.Type.ON_GROUND,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TuffCreeper::checkCreeperSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
     }
 }

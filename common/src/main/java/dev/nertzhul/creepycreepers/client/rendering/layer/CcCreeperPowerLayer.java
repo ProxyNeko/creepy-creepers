@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EnergySwirlLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.Creeper;
+
 import org.jetbrains.annotations.NotNull;
 
 public class CcCreeperPowerLayer<T extends Creeper, M extends CcCreeperModel<T>> extends EnergySwirlLayer<T, M> {

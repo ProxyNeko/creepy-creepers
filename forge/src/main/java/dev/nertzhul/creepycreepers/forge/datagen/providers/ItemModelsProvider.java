@@ -1,4 +1,4 @@
-package dev.nertzhul.creepycreepers.forge.datagen;
+package dev.nertzhul.creepycreepers.forge.datagen.providers;
 
 import dev.nertzhul.creepycreepers.CreepyCreepers;
 import dev.nertzhul.creepycreepers.setup.CcItems;
@@ -10,15 +10,15 @@ import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class ItemModels extends ItemModelProvider {
-    public ItemModels(PackOutput output, ExistingFileHelper existingFileHelper) {
+public class ItemModelsProvider extends ItemModelProvider {
+    public ItemModelsProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, CreepyCreepers.MOD_ID, existingFileHelper);
     }
 
     @Override
     protected void registerModels() {
         CcItems.ITEMS.getEntries().stream().map(RegistryEntry::get)
-            .filter(item -> item instanceof SpawnEggItem)
+            .filter(SpawnEggItem.class::isInstance)
             .forEach(this::makeSpawnEgg);
     }
 

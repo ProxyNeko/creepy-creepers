@@ -9,11 +9,11 @@ import net.minecraft.world.entity.monster.Creeper;
 import java.util.function.Function;
 
 public abstract class CcHeadedCreeperModel<T extends Creeper> extends CcCreeperModel<T> implements HeadedModel {
-    public CcHeadedCreeperModel(ModelPart pRoot) {
+    protected CcHeadedCreeperModel(ModelPart pRoot) {
         this(pRoot, RenderType::entityCutoutNoCull);
     }
     
-    public CcHeadedCreeperModel(ModelPart pRoot, Function<ResourceLocation, RenderType> renderType) {
+    protected CcHeadedCreeperModel(ModelPart pRoot, Function<ResourceLocation, RenderType> renderType) {
         super(pRoot, renderType);
     }
 }

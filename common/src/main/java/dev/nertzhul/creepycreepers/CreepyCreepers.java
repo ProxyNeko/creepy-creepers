@@ -4,6 +4,7 @@ import dev.nertzhul.creepycreepers.setup.CcCreativeTabs;
 import dev.nertzhul.creepycreepers.setup.CcEntities;
 import dev.nertzhul.creepycreepers.setup.CcItems;
 import dev.nertzhul.creepycreepers.setup.CcSoundEvents;
+import dev.nertzhul.creepycreepers.setup.CcTags;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,6 +14,8 @@ public class CreepyCreepers {
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
     
     public static void init() {
+        CcTags.register();
+        
         CcItems.ITEMS.register();
         CcEntities.ENTITIES.register();
         CcSoundEvents.SOUNDS.register();

@@ -20,13 +20,13 @@ Steps to reproduce the behavior:
 **Expected behavior**
 A clear and concise description of what you expected to happen.
 
+**Versions (please complete the following information):**
+- Minecraft: (eg. 1.20.1)
+- Loader: (eg. Forge-47.1.3)
+- Mod: (eg. 5.10.0)
+
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
-
-**Versions (please complete the following information):**
- - Minecraft: (eg. 1.20.1)
- - Loader: (eg. Forge-47.1.3)
- - Mod: (eg. 1.20.1-1.0.0)
 
 **Additional context**
 Add any other context about the problem here.

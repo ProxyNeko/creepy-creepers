@@ -5,10 +5,11 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.monster.Creeper;
+
 import org.jetbrains.annotations.NotNull;
 
 public abstract class CcCreeperRenderer<T extends Creeper, M extends CcCreeperModel<T>> extends MobRenderer<T, M> {
-    public CcCreeperRenderer(EntityRendererProvider.Context context, M model, float shadowRadius) {
+    protected CcCreeperRenderer(EntityRendererProvider.Context context, M model, float shadowRadius) {
         super(context, model, shadowRadius);
     }
     

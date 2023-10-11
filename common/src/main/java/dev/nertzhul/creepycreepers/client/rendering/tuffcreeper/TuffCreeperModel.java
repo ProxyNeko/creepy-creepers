@@ -1,16 +1,16 @@
-package dev.nertzhul.creepycreepers.client.rendering.halloweencreeper;
+package dev.nertzhul.creepycreepers.client.rendering.tuffcreeper;
 
 import dev.nertzhul.creepycreepers.CreepyCreepers;
 import dev.nertzhul.creepycreepers.client.rendering.CcHeadedCreeperModel;
-import dev.nertzhul.creepycreepers.entities.HalloweenCreeper;
+import dev.nertzhul.creepycreepers.entities.TuffCreeper;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
 
 import org.jetbrains.annotations.NotNull;
 
-public class HalloweenCreeperModel extends CcHeadedCreeperModel<HalloweenCreeper> {
-    public static final ModelLayerLocation LAYER = new ModelLayerLocation(CreepyCreepers.resource("halloween_creeper"), "main");
+public class TuffCreeperModel extends CcHeadedCreeperModel<TuffCreeper> {
+    public static final ModelLayerLocation LAYER = new ModelLayerLocation(CreepyCreepers.resource("tuff_creeper"), "main");
     
     private final ModelPart head;
     private final ModelPart rightHindLeg;
@@ -18,7 +18,7 @@ public class HalloweenCreeperModel extends CcHeadedCreeperModel<HalloweenCreeper
     private final ModelPart rightFrontLeg;
     private final ModelPart leftFrontLeg;
     
-    public HalloweenCreeperModel(ModelPart pRoot) {
+    public TuffCreeperModel(ModelPart pRoot) {
         super(pRoot);
         this.head = pRoot.getChild("head");
         this.leftHindLeg = pRoot.getChild("right_hind_leg");
@@ -28,7 +28,7 @@ public class HalloweenCreeperModel extends CcHeadedCreeperModel<HalloweenCreeper
     }
     
     @Override
-    public void setupAnim(HalloweenCreeper entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(TuffCreeper entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.head.yRot = netHeadYaw * 0.017453292F;
         this.head.xRot = headPitch * 0.017453292F;
         this.rightHindLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;

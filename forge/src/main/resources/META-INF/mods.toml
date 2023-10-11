@@ -8,6 +8,7 @@ issueTrackerURL = "https://www.github.com/nertzhuldev/creepy-creepers/issues"
     version = "${mod_version}"
     displayName = "${mod_name}"
     displayURL = "https://www.curseforge.com/minecraft/mc-mods/creepy-creepers"
+    logoFile = "icon.png"
     credits = "KiriCattus, Paint_Ninja"
     authors = "${mod_authors}"
     description = '''${mod_description}'''

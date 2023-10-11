@@ -17,4 +17,6 @@ public class CcItems {
         () -> new DispenserReadySpawnEgg(CcEntities.SNOWY_CREEPER, 0xD1FFFF, 0x53DDFF, new Item.Properties()));
     public static final RegistryEntry<SpawnEggItem> HALLOWEEN_CREEPER_SPAWN_EGG = ITEMS.register("halloween_creeper_spawn_egg",
         () -> new DispenserReadySpawnEgg(CcEntities.HALLOWEEN_CREEPER, 0x528A52, 0x693400, new Item.Properties()));
+    public static final RegistryEntry<SpawnEggItem> TUFF_CREEPER_SPAWN_EGG = ITEMS.register("tuff_creeper_spawn_egg",
+        () -> new DispenserReadySpawnEgg(CcEntities.TUFF_CREEPER, 0x6A6E6F, 0x5D5D52, new Item.Properties()));
 }

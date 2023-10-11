@@ -1,14 +1,13 @@
-package dev.nertzhul.creepycreepers.forge.datagen;
+package dev.nertzhul.creepycreepers.forge.datagen.providers;
 
 import dev.nertzhul.creepycreepers.CreepyCreepers;
 import dev.nertzhul.creepycreepers.setup.CcSoundEvents;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.common.data.SoundDefinitionsProvider;
 
-public class SoundDefinitions extends SoundDefinitionsProvider {
-    public SoundDefinitions(PackOutput output, ExistingFileHelper helper) {
+public class SoundDefinitionsProvider extends net.minecraftforge.common.data.SoundDefinitionsProvider {
+    public SoundDefinitionsProvider(PackOutput output, ExistingFileHelper helper) {
         super(output, CreepyCreepers.MOD_ID, helper);
     }
 
