@@ -47,6 +47,7 @@ public class LootTablesProvider extends LootTableProvider {
         
         @Override
         public void generate() {
+            add(CcEntities.CORRUPTED_CREEPER.get(), baseCreeperLoot());
             add(CcEntities.GHOSTLY_CREEPER.get(), baseCreeperLoot());
             add(CcEntities.HALLOWEEN_CREEPER.get(), baseCreeperLoot());
             add(CcEntities.SNOWY_CREEPER.get(), baseCreeperLoot()
