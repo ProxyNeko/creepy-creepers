@@ -10,6 +10,10 @@ public class CommonConstants {
         public static final Translation CREATIVE_TAB = Translation.builder("creativetab", "title").addLocale(Locale.EN_US, "Creepy Creepers").build();
         
         //region Items
+        public static final Translation CORRUPTED_CREEPER_SPAWN_EGG = Translation.builder(CcItems.CORRUPTED_CREEPER_SPAWN_EGG.get())
+            .addLocale(Locale.EN_US, "Corrupted Creeper Spawn Egg")
+            .addLocale(Locale.PT_BR, "Ovo Gerador de Creeper Corrompido").build();
+        
         public static final Translation GHOSTLY_CREEPER_SPAWN_EGG = Translation.builder(CcItems.GHOSTLY_CREEPER_SPAWN_EGG.get())
             .addLocale(Locale.EN_US, "Ghostly Creeper Spawn Egg")
             .addLocale(Locale.PT_BR, "Ovo Gerador de Creeper Fantasmagórico").build();
@@ -37,6 +41,9 @@ public class CommonConstants {
         public static final Translation TUFF_CREEPER = Translation.builder(CcEntities.TUFF_CREEPER.get())
             .addLocale(Locale.EN_US, "Tuff Creeper")
             .addLocale(Locale.PT_BR, "Creeper de Tufo").build();
+        public static final Translation CORRUPTED_CREEPER = Translation.builder(CcEntities.CORRUPTED_CREEPER.get())
+            .addLocale(Locale.EN_US, "Corrupted Creeper")
+            .addLocale(Locale.PT_BR, "Creeper Corrompido").build();
         //endregion
         
         //region Subtitles

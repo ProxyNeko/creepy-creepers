@@ -12,9 +12,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
-/**
- * Copy of {@link net.minecraft.network.protocol.game.ClientboundExplodePacket ClientboundExplodePacket} that doesn't display any particles.
- */
 public final class FakeExplosionPacket implements Message {
     public static final ResourceLocation ID = CreepyCreepers.resource("fake_explosion_packet");
     
@@ -26,8 +23,9 @@ public final class FakeExplosionPacket implements Message {
     private final float knockbackX;
     private final float knockbackY;
     private final float knockbackZ;
+    private final boolean particles;
     
-    public FakeExplosionPacket(double x, double y, double z, float power, List<BlockPos> toBlow, @Nullable Vec3 knockback) {
+    public FakeExplosionPacket(double x, double y, double z, float power, List<BlockPos> toBlow, @Nullable Vec3 knockback, boolean particles) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -42,6 +40,7 @@ public final class FakeExplosionPacket implements Message {
             this.knockbackY = 0.0F;
             this.knockbackZ = 0.0F;
         }
+        this.particles = particles;
     }
     
     public FakeExplosionPacket(FriendlyByteBuf pBuf) {
@@ -61,6 +60,7 @@ public final class FakeExplosionPacket implements Message {
         this.knockbackX = pBuf.readFloat();
         this.knockbackY = pBuf.readFloat();
         this.knockbackZ = pBuf.readFloat();
+        this.particles = pBuf.readBoolean();
     }
     
     @Override
@@ -83,6 +83,7 @@ public final class FakeExplosionPacket implements Message {
         pBuf.writeFloat(this.knockbackX);
         pBuf.writeFloat(this.knockbackY);
         pBuf.writeFloat(this.knockbackZ);
+        pBuf.writeBoolean(this.particles);
     }
     
     @Override
@@ -115,5 +116,9 @@ public final class FakeExplosionPacket implements Message {
     
     public float knockbackZ() {
         return this.knockbackZ;
+    }
+    
+    public boolean particles() {
+        return this.particles;
     }
 }

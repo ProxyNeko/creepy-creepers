@@ -9,7 +9,7 @@ public class ClientboundMessageHandler {
     
     public static void handle(FakeExplosionPacket pPacket) {
         Explosion explosion = new Explosion(minecraft.level, null, pPacket.x(), pPacket.y(), pPacket.z(), pPacket.power(), pPacket.toBlow());
-        explosion.finalizeExplosion(false);
+        explosion.finalizeExplosion(pPacket.particles());
         minecraft.player.setDeltaMovement(minecraft.player.getDeltaMovement().add(pPacket.knockbackX(), pPacket.knockbackY(), pPacket.knockbackZ()));
     }
 }

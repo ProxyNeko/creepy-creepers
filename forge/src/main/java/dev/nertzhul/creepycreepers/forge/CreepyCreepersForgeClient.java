@@ -1,6 +1,8 @@
 package dev.nertzhul.creepycreepers.forge;
 
 import dev.nertzhul.creepycreepers.CreepyCreepersClient;
+import dev.nertzhul.creepycreepers.client.rendering.corruptedcreeper.CorruptedCreeperModel;
+import dev.nertzhul.creepycreepers.client.rendering.corruptedcreeper.CorruptedCreeperRenderer;
 import dev.nertzhul.creepycreepers.client.rendering.ghostlycreeper.GhostlyCreeperModel;
 import dev.nertzhul.creepycreepers.client.rendering.ghostlycreeper.GhostlyCreeperRenderer;
 import dev.nertzhul.creepycreepers.client.rendering.halloweencreeper.HalloweenCreeperModel;
@@ -40,6 +42,7 @@ public class CreepyCreepersForgeClient {
         event.registerEntityRenderer(CcEntities.SNOWY_CREEPER.get(), SnowyCreeperRenderer::new);
         event.registerEntityRenderer(CcEntities.HALLOWEEN_CREEPER.get(), HalloweenCreeperRenderer::new);
         event.registerEntityRenderer(CcEntities.TUFF_CREEPER.get(), TuffCreeperRenderer::new);
+        event.registerEntityRenderer(CcEntities.CORRUPTED_CREEPER.get(), CorruptedCreeperRenderer::new);
     }
     
     private static void onEntityLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
@@ -48,5 +51,7 @@ public class CreepyCreepersForgeClient {
         event.registerLayerDefinition(SnowyCreeperModel.LAYER, SnowyCreeperModel::createBodyLayer);
         event.registerLayerDefinition(HalloweenCreeperModel.LAYER, HalloweenCreeperModel::createBodyLayer);
         event.registerLayerDefinition(TuffCreeperModel.LAYER, TuffCreeperModel::createBodyLayer);
+        event.registerLayerDefinition(CorruptedCreeperModel.LAYER, () -> CorruptedCreeperModel.createBodyLayer(CubeDeformation.NONE));
+        event.registerLayerDefinition(CorruptedCreeperModel.ARMOR_LAYER, () -> CorruptedCreeperModel.createBodyLayer(new CubeDeformation(1.5F)));
     }
 }

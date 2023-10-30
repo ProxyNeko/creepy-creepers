@@ -11,6 +11,9 @@ import net.minecraft.world.item.SpawnEggItem;
 public class CcItems {
     public static final RegistryProvider<Item> ITEMS = RegistryProvider.create(Registries.ITEM, CreepyCreepers.MOD_ID);
     
+    public static final RegistryEntry<SpawnEggItem> CORRUPTED_CREEPER_SPAWN_EGG = ITEMS.register("corrupted_creeper_spawn_egg",
+        () -> new DispenserReadySpawnEgg(CcEntities.CORRUPTED_CREEPER, 0x072D10, 0x1B7A32, new Item.Properties()));
+    
     public static final RegistryEntry<SpawnEggItem> GHOSTLY_CREEPER_SPAWN_EGG = ITEMS.register("ghostly_creeper_spawn_egg",
         () -> new DispenserReadySpawnEgg(CcEntities.GHOSTLY_CREEPER, 0xFFFFFF, 0x808080, new Item.Properties()));
     public static final RegistryEntry<SpawnEggItem> SNOWY_CREEPER_SPAWN_EGG = ITEMS.register("snowy_creeper_spawn_egg",

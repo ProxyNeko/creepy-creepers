@@ -44,7 +44,7 @@ public class SnowyCreeper extends Creeper {
             ServerLevel level = (ServerLevel) this.level();
             AABB affectedArea = this.getBoundingBox().inflate(radius);
             
-            ExplosionUtil.fakeExplosion(level, this, this.getX(), this.getY(), this.getZ(), (radius / 2.0F));
+            ExplosionUtil.fakeExplosion(level, this, this.getX(), this.getY(), this.getZ(), (radius / 2.0F), false);
             BlockPos.betweenClosedStream(affectedArea)
                 .filter(blockPos -> this.distanceToSqr(Vec3.atCenterOf(blockPos)) < radius * radius)
                 .filter(blockPos -> {

@@ -2,6 +2,7 @@ package dev.nertzhul.creepycreepers.forge;
 
 import com.mojang.datafixers.util.Pair;
 import dev.nertzhul.creepycreepers.CreepyCreepers;
+import dev.nertzhul.creepycreepers.entities.CorruptedCreeper;
 import dev.nertzhul.creepycreepers.entities.GhostlyCreeper;
 import dev.nertzhul.creepycreepers.entities.HalloweenCreeper;
 import dev.nertzhul.creepycreepers.entities.SnowyCreeper;
@@ -57,6 +58,7 @@ public class CreepyCreepersForge {
         event.put(CcEntities.SNOWY_CREEPER.get(), SnowyCreeper.createAttributes().build());
         event.put(CcEntities.HALLOWEEN_CREEPER.get(), HalloweenCreeper.createAttributes().build());
         event.put(CcEntities.TUFF_CREEPER.get(), TuffCreeper.createAttributes().build());
+        event.put(CcEntities.CORRUPTED_CREEPER.get(), CorruptedCreeper.createAttributes().build());
     }
     
     private static void onSpawnPlacement(SpawnPlacementRegisterEvent event) {
@@ -68,5 +70,7 @@ public class CreepyCreepersForge {
             Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SnowyCreeper::checkCreeperSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(CcEntities.TUFF_CREEPER.get(), SpawnPlacements.Type.ON_GROUND,
             Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TuffCreeper::checkCreeperSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(CcEntities.CORRUPTED_CREEPER.get(), SpawnPlacements.Type.ON_GROUND,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CorruptedCreeper::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
     }
 }

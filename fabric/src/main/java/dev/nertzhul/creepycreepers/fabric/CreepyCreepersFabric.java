@@ -1,6 +1,7 @@
 package dev.nertzhul.creepycreepers.fabric;
 
 import dev.nertzhul.creepycreepers.CreepyCreepers;
+import dev.nertzhul.creepycreepers.entities.CorruptedCreeper;
 import dev.nertzhul.creepycreepers.entities.GhostlyCreeper;
 import dev.nertzhul.creepycreepers.entities.HalloweenCreeper;
 import dev.nertzhul.creepycreepers.entities.SnowyCreeper;
@@ -26,16 +27,19 @@ public class CreepyCreepersFabric implements ModInitializer {
         FabricDefaultAttributeRegistry.register(CcEntities.SNOWY_CREEPER.get(), SnowyCreeper.createAttributes());
         FabricDefaultAttributeRegistry.register(CcEntities.HALLOWEEN_CREEPER.get(), HalloweenCreeper.createAttributes());
         FabricDefaultAttributeRegistry.register(CcEntities.TUFF_CREEPER.get(), TuffCreeper.createAttributes());
+        FabricDefaultAttributeRegistry.register(CcEntities.CORRUPTED_CREEPER.get(), CorruptedCreeper.createAttributes());
         
         SpawnPlacements.register(CcEntities.GHOSTLY_CREEPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GhostlyCreeper::checkMonsterSpawnRules);
         SpawnPlacements.register(CcEntities.SNOWY_CREEPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SnowyCreeper::checkCreeperSpawnRules);
         SpawnPlacements.register(CcEntities.HALLOWEEN_CREEPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, HalloweenCreeper::checkMonsterSpawnRules);
         SpawnPlacements.register(CcEntities.TUFF_CREEPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TuffCreeper::checkCreeperSpawnRules);
+        SpawnPlacements.register(CcEntities.CORRUPTED_CREEPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CorruptedCreeper::checkMonsterSpawnRules);
         
         BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_OVERWORLD), MobCategory.MONSTER, CcEntities.GHOSTLY_CREEPER.get(), 50, 1, 3);
         BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_OVERWORLD), MobCategory.MONSTER, CcEntities.HALLOWEEN_CREEPER.get(), 80, 1, 3);
         /* minecraft:spawns_snow_foxes has the same biomes as #forge:is_snowy */
         BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.SPAWNS_SNOW_FOXES), MobCategory.MONSTER, CcEntities.SNOWY_CREEPER.get(), 80, 2, 4);
         BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_OVERWORLD), MobCategory.MONSTER, CcEntities.TUFF_CREEPER.get(), 70, 1, 3);
+        BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_OVERWORLD), MobCategory.MONSTER, CcEntities.CORRUPTED_CREEPER.get(), 10, 1, 1);
     }
 }
