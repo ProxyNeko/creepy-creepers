@@ -7,8 +7,8 @@ import dev.nertzhul.creepycreepers.entities.HalloweenCreeper;
 import dev.nertzhul.creepycreepers.entities.SnowyCreeper;
 import dev.nertzhul.creepycreepers.entities.TuffCreeper;
 import dev.nertzhul.creepycreepers.setup.CcEntities;
+import dev.nertzhul.creepycreepers.setup.CcTags;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -34,11 +34,10 @@ public class CreepyCreepersQuilt implements ModInitializer {
         SpawnPlacements.register(CcEntities.TUFF_CREEPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TuffCreeper::checkCreeperSpawnRules);
         SpawnPlacements.register(CcEntities.CORRUPTED_CREEPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CorruptedCreeper::checkMonsterSpawnRules);
         
-        BiomeModifications.addSpawn(BiomeSelectors.isIn(BiomeTags.IS_OVERWORLD), MobCategory.MONSTER, CcEntities.GHOSTLY_CREEPER.get(), 50, 1, 3);
-        BiomeModifications.addSpawn(BiomeSelectors.isIn(BiomeTags.IS_OVERWORLD), MobCategory.MONSTER, CcEntities.HALLOWEEN_CREEPER.get(), 80, 1, 3);
-        /* minecraft:spawns_snow_foxes has the same biomes as #forge:is_snowy */
-        BiomeModifications.addSpawn(BiomeSelectors.isIn(BiomeTags.SPAWNS_SNOW_FOXES), MobCategory.MONSTER, CcEntities.SNOWY_CREEPER.get(), 80, 2, 4);
-        BiomeModifications.addSpawn(BiomeSelectors.isIn(BiomeTags.IS_OVERWORLD), MobCategory.MONSTER, CcEntities.TUFF_CREEPER.get(), 70, 1, 3);
-        BiomeModifications.addSpawn(BiomeSelectors.isIn(BiomeTags.IS_OVERWORLD), MobCategory.MONSTER, CcEntities.CORRUPTED_CREEPER.get(), 10, 1, 1);
+        BiomeModifications.addSpawn(BiomeSelectors.isIn(CcTags.HAS_GHOSTLY_CREEPER), MobCategory.MONSTER, CcEntities.GHOSTLY_CREEPER.get(), 50, 1, 3);
+        BiomeModifications.addSpawn(BiomeSelectors.isIn(CcTags.HAS_HALLOWEEN_CREEPER), MobCategory.MONSTER, CcEntities.HALLOWEEN_CREEPER.get(), 80, 1, 3);
+        BiomeModifications.addSpawn(BiomeSelectors.isIn(CcTags.HAS_SNOWY_CREEPER), MobCategory.MONSTER, CcEntities.SNOWY_CREEPER.get(), 80, 2, 4);
+        BiomeModifications.addSpawn(BiomeSelectors.isIn(CcTags.HAS_TUFF_CREEPER), MobCategory.MONSTER, CcEntities.TUFF_CREEPER.get(), 70, 1, 3);
+        BiomeModifications.addSpawn(BiomeSelectors.isIn(CcTags.HAS_CORRUPTED_CREEPER), MobCategory.MONSTER, CcEntities.CORRUPTED_CREEPER.get(), 10, 1, 1);
     }
 }

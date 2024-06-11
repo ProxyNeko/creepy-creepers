@@ -1,6 +1,6 @@
 {
     "type": "forge:add_spawns",
-    "biomes": "#forge:is_snowy",
+    "biomes": "#creepycreepers:has_snowy_creeper",
     "spawners": {
         "type": "creepycreepers:snowy_creeper",
         "weight": 80,

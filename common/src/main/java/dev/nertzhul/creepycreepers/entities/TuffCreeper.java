@@ -45,7 +45,7 @@ public class TuffCreeper extends Creeper {
     }
     
     public static boolean checkCreeperSpawnRules(EntityType<? extends Monster> type, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        if ((level.getBiome(pos).is(CcTags.IS_UNDERGROUND) && !level.getBiome(pos).is(Biomes.DEEP_DARK)) || pos.getY() < level.getSeaLevel() - 5) {
+        if (pos.getY() < level.getSeaLevel() - 5) {
             return Monster.checkMonsterSpawnRules(type, level, spawnType, pos, random);
         }
         return false;
