@@ -47,10 +47,12 @@ public class CreepyCreepersForge {
     private static void onCommonSetup(FMLCommonSetupEvent event) {
         ForgeNetworkManager.registerMessages();
         
-        Map<EntityType<? extends Mob>, SpawnEggItem> idMap = SpawnEggAccessor.cc_getIdMap();
-        for (Pair<Supplier<? extends EntityType<? extends Mob>>, SpawnEggItem> pair : DispenserReadySpawnEgg.SPAWN_EGGS) {
-            idMap.put(pair.getFirst().get(), pair.getSecond());
-        }
+        event.enqueueWork(() -> {
+            var idMap = SpawnEggAccessor.cc_getIdMap();
+            for (var pair : DispenserReadySpawnEgg.SPAWN_EGGS) {
+                idMap.put(pair.getFirst().get(), pair.getSecond());
+            }
+        });
     }
     
     private static void onEntityAttributeCreation(EntityAttributeCreationEvent event) {

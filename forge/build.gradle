@@ -5,10 +5,7 @@ plugins {
 }
 
 mixin {
-    add(sourceSets.main, "${mod_id}.refmap.json")
-
     config("${mod_id}.mixins.json")
-//    config("${mod_id}.forge.mixins.json")
 }
 
 minecraft {
@@ -55,6 +52,14 @@ dependencies {
     implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
 
     annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
+}
+
+jar {
+    manifest {
+        attributes([
+                "MixinConfigs": "${mod_id}.mixins.json"
+        ])
+    }
 }
 
 sourceSets.each {

@@ -20,6 +20,7 @@
         "main": ["dev.nertzhul.creepycreepers.fabric.${mod_name}Fabric"],
         "client": ["dev.nertzhul.creepycreepers.fabric.${mod_name}FabricClient"]
     },
+    "accessWidener": "${mod_id}.accesswidener",
     "mixins": [
         "${mod_id}.mixins.json"
     ],
