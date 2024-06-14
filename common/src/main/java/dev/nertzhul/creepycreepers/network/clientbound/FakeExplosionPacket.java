@@ -3,17 +3,23 @@ package dev.nertzhul.creepycreepers.network.clientbound;
 import dev.nertzhul.creepycreepers.CreepyCreepers;
 import dev.nertzhul.creepycreepers.network.ClientboundMessageHandler;
 import dev.nertzhul.creepycreepers.network.base.Message;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public final class FakeExplosionPacket implements Message {
-    public static final ResourceLocation ID = CreepyCreepers.resource("fake_explosion_packet");
+    public static final Type<FakeExplosionPacket> TYPE = new Type<>(CreepyCreepers.resource("fake_explosion_packet"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, FakeExplosionPacket> CODEC = StreamCodec.ofMember(FakeExplosionPacket::encode, FakeExplosionPacket::new);
     
     private final double x;
     private final double y;
@@ -63,7 +69,6 @@ public final class FakeExplosionPacket implements Message {
         this.particles = pBuf.readBoolean();
     }
     
-    @Override
     public void encode(FriendlyByteBuf pBuf) {
         pBuf.writeDouble(this.x);
         pBuf.writeDouble(this.y);
@@ -86,14 +91,14 @@ public final class FakeExplosionPacket implements Message {
         pBuf.writeBoolean(this.particles);
     }
     
-    @Override
-    public void handle() {
-        ClientboundMessageHandler.handle(this);
+    @Override @NotNull
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
     
     @Override
-    public ResourceLocation getId() {
-        return ID;
+    public void handleClient(Minecraft minecraft, Player player) {
+        ClientboundMessageHandler.handle(minecraft, player, this);
     }
     
     public double x() { return this.x; }

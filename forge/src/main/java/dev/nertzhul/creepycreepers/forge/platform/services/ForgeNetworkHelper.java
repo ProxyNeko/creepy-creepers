@@ -12,21 +12,21 @@ import net.minecraftforge.network.PacketDistributor;
 public class ForgeNetworkHelper implements NetworkHelper {
     @Override
     public <T extends Message> void sendTo(ServerPlayer pPlayer, T pMessage) {
-        ForgeNetworkManager.INSTANCE.send(PacketDistributor.PLAYER.with(() -> pPlayer), pMessage);
+        ForgeNetworkManager.INSTANCE.send(pMessage, PacketDistributor.PLAYER.with(pPlayer));
     }
     
     @Override
     public <T extends Message> void sendToServer(T pMessage) {
-        ForgeNetworkManager.INSTANCE.sendToServer(pMessage);
+        ForgeNetworkManager.INSTANCE.send(pMessage, PacketDistributor.SERVER.noArg());
     }
     
     @Override
     public <T extends Message> void sendToTracking(ServerLevel pLevel, BlockPos pPos, T pMessage) {
-        ForgeNetworkManager.INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> pLevel.getChunkAt(pPos)), pMessage);
+        ForgeNetworkManager.INSTANCE.send(pMessage, PacketDistributor.TRACKING_CHUNK.with(pLevel.getChunkAt(pPos)));
     }
     
     @Override
     public <T extends Message> void sendToTracking(Entity pEntity, T pMessage) {
-        ForgeNetworkManager.INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> pEntity), pMessage);
+        ForgeNetworkManager.INSTANCE.send(pMessage, PacketDistributor.TRACKING_ENTITY.with(pEntity));
     }
 }

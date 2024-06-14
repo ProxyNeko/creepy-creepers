@@ -14,6 +14,7 @@ import dev.nertzhul.creepycreepers.client.rendering.tuffcreeper.TuffCreeperRende
 import dev.nertzhul.creepycreepers.items.DispenserReadySpawnEgg;
 import dev.nertzhul.creepycreepers.setup.CcEntities;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.util.FastColor;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -33,7 +34,7 @@ public class CreepyCreepersForgeClient {
     
     private static void onRegisterItemColors(RegisterColorHandlersEvent.Item event) {
         DispenserReadySpawnEgg.SPAWN_EGGS.forEach(pair -> {
-            event.getItemColors().register((stack, layer) -> pair.getSecond().getColor(layer), pair.getSecond());
+            event.getItemColors().register((stack, layer) -> FastColor.ARGB32.opaque(pair.getSecond().getColor(layer)), pair.getSecond());
         });
     }
     

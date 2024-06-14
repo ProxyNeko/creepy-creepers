@@ -3,7 +3,6 @@ package dev.nertzhul.creepycreepers.platform;
 import dev.nertzhul.creepycreepers.CreepyCreepers;
 import dev.nertzhul.creepycreepers.platform.services.NetworkHelper;
 import dev.nertzhul.creepycreepers.platform.services.PlatformHelper;
-import dev.nertzhul.creepycreepers.platform.services.RegistryFactory;
 
 import java.util.ServiceLoader;
 
@@ -16,7 +15,6 @@ import java.util.ServiceLoader;
  */
 public class Services {
     public static final PlatformHelper PLATFORM = load(PlatformHelper.class);
-    public static final RegistryFactory REGISTRY_FACTORY = load(RegistryFactory.class);
     public static final NetworkHelper NETWORK = load(NetworkHelper.class);
     
     /**

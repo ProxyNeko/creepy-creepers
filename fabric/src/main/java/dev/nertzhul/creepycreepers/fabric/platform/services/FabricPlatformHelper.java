@@ -7,7 +7,7 @@ import net.fabricmc.loader.api.FabricLoader;
 public class FabricPlatformHelper implements PlatformHelper {
     @Override
     public Platform platform() {
-        return Platform.FORGE;
+        return Platform.FABRIC;
     }
     
     @Override

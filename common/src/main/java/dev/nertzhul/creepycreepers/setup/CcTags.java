@@ -6,8 +6,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 
 public class CcTags {
-    public static void register() { }
-    
     public static final TagKey<Biome> IS_UNDERGROUND = createBiomeTag("is_underground");
     
     public static final TagKey<Biome> HAS_GHOSTLY_CREEPER = createBiomeTag("has_ghostly_creeper");
@@ -18,5 +16,9 @@ public class CcTags {
     
     private static TagKey<Biome> createBiomeTag(String pPath) {
         return TagKey.create(Registries.BIOME, CreepyCreepers.resource(pPath));
+    }
+    
+    public static void register() {
+        // no-op
     }
 }

@@ -1,6 +1,5 @@
 package dev.nertzhul.creepycreepers.client.rendering.layer;
 
-import com.mojang.authlib.GameProfile;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import dev.nertzhul.creepycreepers.client.rendering.CcHeadedCreeperModel;
@@ -12,8 +11,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,6 +22,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ResolvableProfile;
 import net.minecraft.world.level.block.AbstractSkullBlock;
 import net.minecraft.world.level.block.SkullBlock;
 
@@ -56,14 +55,7 @@ public class CcCustomHeadLayer<T extends Creeper, M extends CcHeadedCreeperModel
             if (item instanceof BlockItem && ((BlockItem) item).getBlock() instanceof AbstractSkullBlock) {
                 poseStack.scale(1.1875F, -1.1875F, -1.1875F);
                 
-                GameProfile gameProfile = null;
-                if (itemStack.hasTag()) {
-                    CompoundTag compoundTag = itemStack.getTag();
-                    if (compoundTag.contains("SkullOwner", 10)) {
-                        gameProfile = NbtUtils.readGameProfile(compoundTag.getCompound("SkullOwner"));
-                    }
-                }
-                
+                ResolvableProfile gameProfile = itemStack.get(DataComponents.PROFILE);
                 poseStack.translate(-0.5, -0.05, -0.5);
                 
                 SkullBlock.Type type = ((AbstractSkullBlock) ((BlockItem) item).getBlock()).getType();

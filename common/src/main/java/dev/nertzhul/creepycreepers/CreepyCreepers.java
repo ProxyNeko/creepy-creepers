@@ -15,11 +15,10 @@ public class CreepyCreepers {
     
     public static void init() {
         CcTags.register();
-        
-        CcItems.ITEMS.register();
-        CcEntities.ENTITIES.register();
-        CcSoundEvents.SOUNDS.register();
-        CcCreativeTabs.CREATIVE_TABS.register();
+        CcItems.register();
+        CcEntities.register();
+        CcSoundEvents.register();
+        CcCreativeTabs.register();
     }
     
     public static ResourceLocation resource(String pPath) {

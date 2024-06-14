@@ -11,7 +11,7 @@ import dev.nertzhul.creepycreepers.client.rendering.snowycreeper.SnowyCreeperMod
 import dev.nertzhul.creepycreepers.client.rendering.snowycreeper.SnowyCreeperRenderer;
 import dev.nertzhul.creepycreepers.client.rendering.tuffcreeper.TuffCreeperModel;
 import dev.nertzhul.creepycreepers.client.rendering.tuffcreeper.TuffCreeperRenderer;
-import dev.nertzhul.creepycreepers.fabric.network.FabricNetworkManager;
+import dev.nertzhul.creepycreepers.fabric.network.FabricClientNetworkManager;
 import dev.nertzhul.creepycreepers.items.DispenserReadySpawnEgg;
 import dev.nertzhul.creepycreepers.setup.CcEntities;
 import net.fabricmc.api.ClientModInitializer;
@@ -19,13 +19,14 @@ import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.item.SpawnEggItem;
 
 public class CreepyCreepersFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         CreepyCreepersClient.init();
-        FabricNetworkManager.registerClientMessages();
+        FabricClientNetworkManager.registerReceivers();
         
         EntityRendererRegistry.register(CcEntities.GHOSTLY_CREEPER.get(), GhostlyCreeperRenderer::new);
         EntityRendererRegistry.register(CcEntities.SNOWY_CREEPER.get(), SnowyCreeperRenderer::new);
@@ -43,7 +44,7 @@ public class CreepyCreepersFabricClient implements ClientModInitializer {
         
         DispenserReadySpawnEgg.SPAWN_EGGS.forEach(pair -> {
             SpawnEggItem item = pair.getSecond();
-            ColorProviderRegistry.ITEM.register((itemStack, i) -> item.getColor(i), item);
+            ColorProviderRegistry.ITEM.register((itemStack, i) -> FastColor.ARGB32.opaque(item.getColor(i)), item);
         });
     }
 }

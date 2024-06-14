@@ -1,0 +1,10 @@
+{
+    "type": "neoforge:add_spawns",
+    "biomes": "#creepycreepers:has_corrupted_creeper",
+    "spawners": {
+        "type": "creepycreepers:corrupted_creeper",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 1
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "type": "neoforge:add_spawns",
+    "biomes": "#creepycreepers:has_halloween_creeper",
+    "spawners": {
+        "type": "creepycreepers:halloween_creeper",
+        "weight": 80,
+        "minCount": 1,
+        "maxCount": 3
+    }
+}

@@ -53,7 +53,7 @@ public class CorruptedCreeper extends Creeper {
     }
     
     @Override
-    protected void explodeCreeper() {
+    public void explodeCreeper() {
         if (!this.level().isClientSide) {
             float f = this.explosionRadius * (this.isPowered() ? 2.0F : 1.0F);
             this.dead = true;

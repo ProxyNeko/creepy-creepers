@@ -14,6 +14,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
 
@@ -21,7 +22,8 @@ public class CreepyCreepersFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         CreepyCreepers.init();
-        FabricNetworkManager.registerServerMessages();
+        FabricNetworkManager.registerMessages();
+        FabricNetworkManager.registerReceivers();
         
         FabricDefaultAttributeRegistry.register(CcEntities.GHOSTLY_CREEPER.get(), GhostlyCreeper.createAttributes());
         FabricDefaultAttributeRegistry.register(CcEntities.SNOWY_CREEPER.get(), SnowyCreeper.createAttributes());
@@ -29,11 +31,11 @@ public class CreepyCreepersFabric implements ModInitializer {
         FabricDefaultAttributeRegistry.register(CcEntities.TUFF_CREEPER.get(), TuffCreeper.createAttributes());
         FabricDefaultAttributeRegistry.register(CcEntities.CORRUPTED_CREEPER.get(), CorruptedCreeper.createAttributes());
         
-        SpawnPlacements.register(CcEntities.GHOSTLY_CREEPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GhostlyCreeper::checkMonsterSpawnRules);
-        SpawnPlacements.register(CcEntities.SNOWY_CREEPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SnowyCreeper::checkCreeperSpawnRules);
-        SpawnPlacements.register(CcEntities.HALLOWEEN_CREEPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, HalloweenCreeper::checkMonsterSpawnRules);
-        SpawnPlacements.register(CcEntities.TUFF_CREEPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TuffCreeper::checkCreeperSpawnRules);
-        SpawnPlacements.register(CcEntities.CORRUPTED_CREEPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CorruptedCreeper::checkMonsterSpawnRules);
+        SpawnPlacements.register(CcEntities.GHOSTLY_CREEPER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GhostlyCreeper::checkMonsterSpawnRules);
+        SpawnPlacements.register(CcEntities.SNOWY_CREEPER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SnowyCreeper::checkCreeperSpawnRules);
+        SpawnPlacements.register(CcEntities.HALLOWEEN_CREEPER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, HalloweenCreeper::checkMonsterSpawnRules);
+        SpawnPlacements.register(CcEntities.TUFF_CREEPER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TuffCreeper::checkCreeperSpawnRules);
+        SpawnPlacements.register(CcEntities.CORRUPTED_CREEPER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CorruptedCreeper::checkMonsterSpawnRules);
         
         BiomeModifications.addSpawn(BiomeSelectors.tag(CcTags.HAS_GHOSTLY_CREEPER), MobCategory.MONSTER, CcEntities.GHOSTLY_CREEPER.get(), 50, 1, 3);
         BiomeModifications.addSpawn(BiomeSelectors.tag(CcTags.HAS_HALLOWEEN_CREEPER), MobCategory.MONSTER, CcEntities.HALLOWEEN_CREEPER.get(), 80, 1, 3);

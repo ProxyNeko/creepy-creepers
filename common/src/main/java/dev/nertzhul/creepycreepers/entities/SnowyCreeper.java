@@ -36,7 +36,7 @@ public class SnowyCreeper extends Creeper {
     }
     
     @Override
-    protected void explodeCreeper() {
+    public void explodeCreeper() {
         if (!this.level().isClientSide() && this.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
             this.dead = true;
             
@@ -87,10 +87,5 @@ public class SnowyCreeper extends Creeper {
     @Override
     protected void playStepSound(BlockPos pPos, BlockState pState) {
         this.playSound(this.soundType.getStepSound(), this.soundType.getVolume() * 0.15F, this.soundType.getPitch());
-    }
-    
-    @Override
-    protected void playMuffledStepSound(BlockState state) {
-        this.playSound(this.soundType.getStepSound(), this.soundType.getVolume() * 0.05F, this.soundType.getPitch() * 0.8F);
     }
 }

@@ -1,0 +1,10 @@
+{
+    "type": "neoforge:add_spawns",
+    "biomes": "#creepycreepers:has_snowy_creeper",
+    "spawners": {
+        "type": "creepycreepers:snowy_creeper",
+        "weight": 80,
+        "minCount": 2,
+        "maxCount": 4
+    }
+}

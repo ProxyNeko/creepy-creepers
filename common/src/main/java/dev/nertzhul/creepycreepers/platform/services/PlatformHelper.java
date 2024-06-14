@@ -10,7 +10,7 @@ public interface PlatformHelper {
     boolean isDevelopmentEnvironment();
     
     enum Platform {
-        FORGE, FABRIC, QUILT
+        FORGE, NEOFORGE, FABRIC
     }
     
     enum PhysicalSide {

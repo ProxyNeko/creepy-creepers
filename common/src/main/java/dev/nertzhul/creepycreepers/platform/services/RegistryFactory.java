@@ -1,5 +1,6 @@
 package dev.nertzhul.creepycreepers.platform.services;
 
+import dev.nertzhul.creepycreepers.platform.Services;
 import dev.nertzhul.creepycreepers.util.registry.RegistryProvider;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -11,24 +12,31 @@ import net.minecraft.resources.ResourceKey;
  */
 public interface RegistryFactory {
     /**
-     * Creates a {@link RegistryProvider}.
-     *
-     * @param pResourceKey the {@link ResourceKey} of the registry to create this provider for
-     * @param pModId       the mod id for which the provider will register objects
-     * @param <T>         the type of the provider
-     * @return the provider
+     * The singleton instance of the {@link RegistryFactory}. This is different on each loader.
      */
-    <T> RegistryProvider<T> create(ResourceKey<? extends Registry<T>> pResourceKey, String pModId);
+    RegistryFactory INSTANCE = Services.load(RegistryFactory.class);
     
     /**
      * Creates a {@link RegistryProvider}.
      *
-     * @param pRegistry the {@link Registry} to create this provider for
-     * @param pModId    the mod id for which the provider will register objects
-     * @param <T>      the type of the provider
+     * @param resourceKey the {@link ResourceKey} of the registry to create this provider for
+     * @param modId       the mod id for which the provider will register objects
+     * @param <T>         the type of the provider
+     *
      * @return the provider
      */
-    default <T> RegistryProvider<T> create(Registry<T> pRegistry, String pModId) {
-        return this.create(pRegistry.key(), pModId);
+    <T> RegistryProvider<T> create(ResourceKey<? extends Registry<T>> resourceKey, String modId);
+    
+    /**
+     * Creates a {@link RegistryProvider}.
+     *
+     * @param registry the {@link Registry} to create this provider for
+     * @param modId    the mod id for which the provider will register objects
+     * @param <T>      the type of the provider
+     *
+     * @return the provider
+     */
+    default <T> RegistryProvider<T> create(Registry<T> registry, String modId) {
+        return this.create(registry.key(), modId);
     }
 }

@@ -1,6 +1,5 @@
 package dev.nertzhul.creepycreepers.entities;
 
-import dev.nertzhul.creepycreepers.setup.CcTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
@@ -11,7 +10,6 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -34,7 +32,7 @@ public class TuffCreeper extends Creeper {
     }
     
     @Override
-    protected void explodeCreeper() {
+    public void explodeCreeper() {
         if (!this.level().isClientSide) {
             float f = this.isPowered() ? 3.0F : 1.5F;
             this.dead = true;
@@ -54,10 +52,5 @@ public class TuffCreeper extends Creeper {
     @Override
     protected void playStepSound(BlockPos pPos, BlockState pState) {
         this.playSound(this.soundType.getStepSound(), this.soundType.getVolume() * 0.15F, this.soundType.getPitch());
-    }
-    
-    @Override
-    protected void playMuffledStepSound(BlockState state) {
-        this.playSound(this.soundType.getStepSound(), this.soundType.getVolume() * 0.05F, this.soundType.getPitch() * 0.8F);
     }
 }

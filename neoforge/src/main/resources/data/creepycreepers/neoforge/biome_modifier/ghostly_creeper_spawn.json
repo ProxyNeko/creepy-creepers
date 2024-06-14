@@ -1,0 +1,10 @@
+{
+    "type": "neoforge:add_spawns",
+    "biomes": "#creepycreepers:has_ghostly_creeper",
+    "spawners": {
+        "type": "creepycreepers:ghostly_creeper",
+        "weight": 50,
+        "minCount": 1,
+        "maxCount": 3
+    }
+}

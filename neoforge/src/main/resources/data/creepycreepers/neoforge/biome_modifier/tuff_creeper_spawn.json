@@ -1,0 +1,10 @@
+{
+    "type": "neoforge:add_spawns",
+    "biomes": "#creepycreepers:has_tuff_creeper",
+    "spawners": {
+        "type": "creepycreepers:tuff_creeper",
+        "weight": 70,
+        "minCount": 1,
+        "maxCount": 3
+    }
+}

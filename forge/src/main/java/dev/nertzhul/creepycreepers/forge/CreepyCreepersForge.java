@@ -13,7 +13,7 @@ import dev.nertzhul.creepycreepers.mixin.SpawnEggAccessor;
 import dev.nertzhul.creepycreepers.setup.CcEntities;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
@@ -62,15 +62,10 @@ public class CreepyCreepersForge {
     }
     
     private static void onSpawnPlacement(SpawnPlacementRegisterEvent event) {
-        event.register(CcEntities.GHOSTLY_CREEPER.get(), SpawnPlacements.Type.ON_GROUND,
-            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GhostlyCreeper::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(CcEntities.HALLOWEEN_CREEPER.get(), SpawnPlacements.Type.ON_GROUND,
-            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, HalloweenCreeper::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(CcEntities.SNOWY_CREEPER.get(), SpawnPlacements.Type.ON_GROUND,
-            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SnowyCreeper::checkCreeperSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(CcEntities.TUFF_CREEPER.get(), SpawnPlacements.Type.ON_GROUND,
-            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TuffCreeper::checkCreeperSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(CcEntities.CORRUPTED_CREEPER.get(), SpawnPlacements.Type.ON_GROUND,
-            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CorruptedCreeper::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(CcEntities.GHOSTLY_CREEPER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GhostlyCreeper::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(CcEntities.HALLOWEEN_CREEPER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, HalloweenCreeper::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(CcEntities.SNOWY_CREEPER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SnowyCreeper::checkCreeperSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(CcEntities.TUFF_CREEPER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TuffCreeper::checkCreeperSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(CcEntities.CORRUPTED_CREEPER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CorruptedCreeper::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
     }
 }
