@@ -14,6 +14,7 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 
 public class GhostlyCreeperModel extends CcCreeperModel<GhostlyCreeper> {
@@ -74,9 +75,9 @@ public class GhostlyCreeperModel extends CcCreeperModel<GhostlyCreeper> {
     }
     
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        this.head.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, 0.75F);
-        this.body.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, 0.75F);
-        this.tail.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, 0.75F);
+    public void renderToBuffer(PoseStack $$0, VertexConsumer $$1, int $$2, int $$3, int $$4) {
+        this.head.render($$0, $$1, $$2, $$3, FastColor.ARGB32.color(191, $$4));
+        this.body.render($$0, $$1, $$2, $$3, FastColor.ARGB32.color(191, $$4));
+        this.tail.render($$0, $$1, $$2, $$3, FastColor.ARGB32.color(191, $$4));
     }
 }

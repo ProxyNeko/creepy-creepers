@@ -5,7 +5,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 
 public class RegistryUtil {
@@ -19,10 +18,6 @@ public class RegistryUtil {
     
     public static ResourceLocation getKey(EntityType<?> entityType) {
         return BuiltInRegistries.ENTITY_TYPE.getKey(entityType);
-    }
-    
-    public static ResourceLocation getKey(Enchantment enchantment) {
-        return BuiltInRegistries.ENCHANTMENT.getKey(enchantment);
     }
     
     public static ResourceLocation getKey(ParticleType<?> particleType) {

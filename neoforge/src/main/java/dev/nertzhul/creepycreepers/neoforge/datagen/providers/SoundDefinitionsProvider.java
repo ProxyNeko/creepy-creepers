@@ -19,6 +19,6 @@ public class SoundDefinitionsProvider extends net.neoforged.neoforge.common.data
     }
 
     private ResourceLocation modLoc(String path) {
-        return new ResourceLocation(CreepyCreepers.MOD_ID, path);
+        return CreepyCreepers.resource(path);
     }
 }

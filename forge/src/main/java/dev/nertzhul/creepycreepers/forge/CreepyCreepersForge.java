@@ -1,6 +1,5 @@
 package dev.nertzhul.creepycreepers.forge;
 
-import com.mojang.datafixers.util.Pair;
 import dev.nertzhul.creepycreepers.CreepyCreepers;
 import dev.nertzhul.creepycreepers.entities.CorruptedCreeper;
 import dev.nertzhul.creepycreepers.entities.GhostlyCreeper;
@@ -11,10 +10,7 @@ import dev.nertzhul.creepycreepers.forge.network.ForgeNetworkManager;
 import dev.nertzhul.creepycreepers.items.DispenserReadySpawnEgg;
 import dev.nertzhul.creepycreepers.mixin.SpawnEggAccessor;
 import dev.nertzhul.creepycreepers.setup.CcEntities;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnPlacementTypes;
-import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -24,9 +20,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
-
-import java.util.Map;
-import java.util.function.Supplier;
 
 @Mod(CreepyCreepers.MOD_ID)
 public class CreepyCreepersForge {

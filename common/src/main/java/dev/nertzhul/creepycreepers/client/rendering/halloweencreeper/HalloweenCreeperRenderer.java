@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 public class HalloweenCreeperRenderer extends CcHeadedCreeperRenderer<HalloweenCreeper, HalloweenCreeperModel> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation("textures/entity/creeper/creeper.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.withDefaultNamespace("textures/entity/creeper/creeper.png");
     
     public HalloweenCreeperRenderer(EntityRendererProvider.Context pContext) {
         super(pContext, new HalloweenCreeperModel(pContext.bakeLayer(HalloweenCreeperModel.LAYER)), 0.5F);

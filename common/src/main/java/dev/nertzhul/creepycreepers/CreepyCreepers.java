@@ -22,6 +22,6 @@ public class CreepyCreepers {
     }
     
     public static ResourceLocation resource(String pPath) {
-        return new ResourceLocation(MOD_ID, pPath);
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, pPath);
     }
 }

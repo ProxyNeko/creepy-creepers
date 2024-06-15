@@ -85,12 +85,12 @@ public class CorruptedCreeperModel extends CcCreeperModel<CorruptedCreeper> {
     }
     
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        this.head.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        this.body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        this.leg1.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        this.leg2.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        this.leg3.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        this.leg4.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+    public void renderToBuffer(PoseStack $$0, VertexConsumer $$1, int $$2, int $$3, int $$4) {
+        this.head.render($$0, $$1, $$2, $$3, $$4);
+        this.body.render($$0, $$1, $$2, $$3, $$4);
+        this.leg1.render($$0, $$1, $$2, $$3, $$4);
+        this.leg2.render($$0, $$1, $$2, $$3, $$4);
+        this.leg3.render($$0, $$1, $$2, $$3, $$4);
+        this.leg4.render($$0, $$1, $$2, $$3, $$4);
     }
 }
